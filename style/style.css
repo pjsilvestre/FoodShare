@@ -1,0 +1,23 @@
+html{
+    font-size: 20px; /*font size*/
+    font-family: 'Oswald', sans-serif;  /*font style*/
+}
+h1,h3{
+    color:rgb(240, 100, 240);
+    background-color:rgb(50, 5, 200);
+    width: 1000;
+    border: 10px solid rgb(50, 5, 200) ;
+    margin: 0 auto;
+    padding: 0;
+}
+
+h4{
+    color:rgb(240, 100, 240);
+    width: 75px;
+    border: 3px solid rgb(84, 201, 240);
+    background-color: rgb(50, 5, 200);;
+    text-align: center;
+}
+p{
+    color:rgb(240, 100, 240);
+}
