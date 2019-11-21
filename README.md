@@ -8,9 +8,9 @@ Using the Firebase Admin SDK requires a private key file. In the context of this
 ## Running in Development Mode
 Make sure you have [Node.js](nodejs.org) installed.
 ```sh
-$ git clone git@github.com:pjsilvestre/FoodShare.git
-$ cd FoodShare/express-app
-$ npm install
-$ npm run devstart
+git clone git@github.com:pjsilvestre/FoodShare.git
+cd FoodShare/express-app
+npm install
+npm run devstart
 ```
 The app should now be running on [localhost:3000](localhost:3000).
