@@ -4,7 +4,7 @@ const admin = require("../config/firebase-config");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "foodshare" });
 });
 
 module.exports = router;
