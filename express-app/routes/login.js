@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const firebase = require('../config/firebase-config-client');
+const firebase = require("../config/firebase-config-client");
 
 /* GET login page */
 router.get("/", function(req, res, next) {
@@ -17,17 +17,14 @@ router.post("/", function(req, res, next) {
     .signInWithEmailAndPassword(email, password)
     .catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      if (errorCode === "auth/wrong-password") {
-        alert("Wrong password.");
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      if (errorCode) {
+        res.render("login", { errorMessage: errorMessage });
       } else {
-        alert(errorMessage);
+        res.render("index");
       }
-      console.log(error);
     });
-
-  res.redirect("/");
 });
 
 module.exports = router;

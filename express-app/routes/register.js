@@ -24,12 +24,13 @@ router.post("/", function(req, res, next) {
     })
     .then(function(userRecord) {
       // See the UserRecord reference doc for the contents of userRecord.
-      console.log("Successfully created new user:", userRecord);
+      console.log("Successfully created new user:", userRecord.uid);
+      res.render("login");
     })
     .catch(function(error) {
       console.log("Error creating new user:", error);
+      res.render("register", {errorMessage: error});
     });
-  res.redirect("/");
 });
 
 module.exports = router;
