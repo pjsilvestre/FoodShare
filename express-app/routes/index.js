@@ -5,7 +5,7 @@ const firebase = require("../config/firebase-config-client");
 /* GET home page. */
 router.get("/", async function(req, res, next) {
   try {
-    const user = await firebase.auth().currentUser;
+    let user = await firebase.auth().currentUser;
 
     if (user) {
       res.render("index", { user: user });

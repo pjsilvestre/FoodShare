@@ -21,10 +21,10 @@ router.post("/", function(req, res, next) {
       let errorMessage = error.message;
       if (errorCode) {
         res.render("login", { errorMessage: errorMessage });
-      } else {
-        res.render("index");
       }
     });
+
+  res.redirect("/");
 });
 
 module.exports = router;
