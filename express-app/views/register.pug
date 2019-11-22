@@ -1,3 +1,14 @@
 extends layout
 
 block content
+    form(action="/register" method="POST")
+        div(class="form-group")
+            label(for="username") Username
+            input(type="text" class="form-control" name="username" placeholder="Enter username" required)
+        div(class="form-group")
+            label(for="email") Email address
+            input(type="email" class="form-control" name="email" placeholder="Enter email" required)
+        div(class="form-group")
+            label(for="password") Password
+            input(type="password" class="form-control" name="password" placeholder="Enter password" required)
+        button(type="submit" class="btn btn-primary") Submit
