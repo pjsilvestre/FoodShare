@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  include partials/navbar-unauthenticated
-  p Welcome to foodshare.
+  if user
+    include partials/navbar-authenticated
+    p Welcome to foodshare, #{user.uid}.
+  else
+    include partials/navbar-unauthenticated
+    p Welcome to foodshare.
