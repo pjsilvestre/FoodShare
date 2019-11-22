@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const admin = require("../config/firebase-config");
+const admin = require("../config/firebase-config-admin");
 
 /* GET register page. */
 router.get("/", function(req, res, next) {

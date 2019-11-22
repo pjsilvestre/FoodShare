@@ -1,10 +1,9 @@
 var express = require("express");
 var router = express.Router();
-const admin = require("../config/firebase-config-admin");
 
-/* GET home page. */
+/* GET login page */
 router.get("/", function(req, res, next) {
-  res.render("index");
+  res.render("login");
 });
 
 module.exports = router;
