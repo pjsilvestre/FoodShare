@@ -3,7 +3,9 @@ extends layout
 block content
   if user
     include partials/navbar-authenticated
-    p Welcome to foodshare, #{user.uid}.
+    div(class="jumbotron")
+      h1 Welcome to foodshare, #{user.uid}.
   else
     include partials/navbar-unauthenticated
-    p Welcome to foodshare.
+    div(class="jumbotron")
+      h1 Welcome to foodshare.

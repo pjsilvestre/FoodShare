@@ -2,15 +2,16 @@ extends layout
 
 block content
     include partials/navbar-unauthenticated
-    if errorMessage
-        div(class="alert alert-warning alert-dismissible fade show") #{errorMessage}
-            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-                span(aria-hidden="true") &times;
-    form(action="/login" method="POST")
-        div(class="form-group")
-            label(for="email") Email address
-            input(type="email" class="form-control" name="email" placeholder="Enter email" required)
-        div(class="form-group")
-            label(for="password") Password
-            input(type="password" class="form-control" name="password" placeholder="Enter password" required)
-        button(type="submit" class="btn btn-primary") Login
+    div(class="container")
+        if errorMessage
+            div(class="alert alert-warning alert-dismissible fade show") #{errorMessage}
+                button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                    span(aria-hidden="true") &times;
+        form(action="/login" method="POST")
+            div(class="form-group")
+                label(for="email") Email address
+                input(type="email" class="form-control" name="email" placeholder="Enter email" required)
+            div(class="form-group")
+                label(for="password") Password
+                input(type="password" class="form-control" name="password" placeholder="Enter password" required)
+            button(type="submit" class="btn btn-primary") Login
