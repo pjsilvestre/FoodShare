@@ -65,16 +65,16 @@
 
   - automatically updated when installing / updating packages
 
-## `\bin`
+### `\bin`
 
 - `www`
   - creates an HTTP server for `app.js`
 
-## `\node_modules`
+### `\node_modules`
 
 - contains libraries downloaded via `npm`
 
-## `\public\stylesheets`
+### `\public\stylesheets`
 
 - `style.css`
 
@@ -82,7 +82,7 @@
 
   - mostly overridden since we are using [Bootstrap](https://getbootstrap.com/)
 
-## `\secrets`
+### `\secrets`
 
 - `foodshare-d3eee-firebase-adminsdk-muxzq-c6401baa87.json`
 
