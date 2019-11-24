@@ -3,28 +3,24 @@ const router = express.Router();
 const firebase = require("../config/firebase-config-client");
 
 /* GET login page */
-router.get("/", function(req, res, next) {
+router.get("/", (req, res) => {
   res.render("login");
 });
 
 /* POST login page */
-router.post("/", function(req, res, next) {
+router.post("/", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .catch(function(error) {
-      // Handle Errors here.
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      if (errorCode) {
-        res.render("login", { errorMessage: errorMessage });
-      }
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch(error => {
+      console.log(error.message);
+      res.redirect("/");
     });
-
-  res.redirect("/");
 });
 
 module.exports = router;
