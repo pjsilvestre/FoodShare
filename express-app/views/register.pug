@@ -3,10 +3,7 @@ extends layout
 block content
     include partials/navbar-unauthenticated
     div(class="container")
-        if errorMessage
-            div(class="alert alert-warning alert-dismissible fade show") #{errorMessage}
-                button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-                    span(aria-hidden="true") &times;
+        include partials/error-message
         form(action="/register" method="POST")
             div(class="form-group")
                 label(for="username") Username
