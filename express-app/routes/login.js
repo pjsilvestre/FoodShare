@@ -18,8 +18,7 @@ router.post("/", (req, res) => {
       res.redirect("/");
     })
     .catch(error => {
-      console.log(error.message);
-      res.redirect("/");
+      res.render("login", { errorMessage: error.message });
     });
 });
 

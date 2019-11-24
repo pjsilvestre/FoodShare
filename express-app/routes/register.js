@@ -3,12 +3,12 @@ const router = express.Router();
 const admin = require("../config/firebase-config-admin");
 
 /* GET register page. */
-router.get("/", function(req, res, next) {
+router.get("/", (req, res) => {
   res.render("register");
 });
 
 /* POST register page. */
-router.post("/", function(req, res, next) {
+router.post("/", (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -22,14 +22,12 @@ router.post("/", function(req, res, next) {
       password: password,
       disabled: false
     })
-    .then(function(userRecord) {
+    .then(() => {
       // See the UserRecord reference doc for the contents of userRecord.
-      console.log("Successfully created new user:", userRecord.uid);
       res.render("login");
     })
-    .catch(function(error) {
-      console.log("Error creating new user:", error);
-      res.render("register", {errorMessage: error});
+    .catch(error => {
+      res.render("register", { errorMessage: error });
     });
 });
 
