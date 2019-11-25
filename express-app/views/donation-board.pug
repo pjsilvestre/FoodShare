@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    if user
+        include partials/navbar-authenticated
+    else
+        include partials/navbar-unauthenticated
