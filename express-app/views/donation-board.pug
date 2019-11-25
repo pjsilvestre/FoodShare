@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    if user
+        include partials/navbar-authenticated
+    else
+        include partials/navbar-unauthenticated
+    div(class="container")
+        table(class="table")
+            thead
+                tr
+                    th(scope="col") Title
+                    th(scope="col") Description
+                    th(scope="col") Donator
+                    th(scope="col") Status
+                    th(scope="col") Pickup Location
+                    th(scope="col") Expiration Date
+            tbody
+                each donation in donations
+                    tr
+                        td=`${donation.title}`
+                        td=`${donation.description}`
+                        td=`${donation.donator}`
+                        td=`${donation.status}`
+                        td=`${donation.pickup_location}`
+                        td=`${donation.expiration_date.toDate()}`

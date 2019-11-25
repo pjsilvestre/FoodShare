@@ -19,7 +19,7 @@ router.delete("/logout", (req, res) => {
     .auth()
     .signOut()
     .then(res.redirect("/"))
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
       res.redirect("/");
     });
