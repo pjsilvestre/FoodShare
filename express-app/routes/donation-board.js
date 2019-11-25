@@ -15,9 +15,15 @@ router.get("/", (req, res) => {
         donations = snapshot.docs.map(document => {
           let donation = document.data();
           donation.id = document.id;
+
+          //convert timestamp to human-readable format for display only
+          donation.expiration_date = donation.expiration_date.toDate();
+
           return donation;
         });
       });
+
+    //console.log(donations);
 
     if (user) {
       res.render("donation-board", { user: user, donations });
