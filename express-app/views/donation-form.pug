@@ -1,23 +1,28 @@
 extends layout
 
 block content 
+    link(rel='stylesheet' href='/stylesheets/donation-form.css')
     include partials/navbar-authenticated
     div(class="container")
-        h1 Create a Listing
+        h1(class="donate-header") Create a Listing:
+        br
         include partials/error-message
-        div(class="row")
-            div(class="col-md")
+        div(class="row justify-content-between")
+            div(class="col-6")
                 div(class="form-group")
-                    label(for="food-item") Food Item
+                    label(for="food-item" id="labels") Food Item
                     input(type="text" class="form-control" name="food-item" placeholder="Enter food item" required)
-                div(class="form-group")
-                    label(for="amount") Amount
+                div(class="form-group" id="labels")
+                    label(for="amount" id="labels") Amount
                     input(type="text" class="form-control" name="amount" placeholder="Enter food amount" required)
                 div(class="form-group")
-                    label(for="meeting-point") Meeting Point
+                    label(for="meeting-point" id="labels") Meeting Point
                     input(type="text" class="form-control" name="meeting-point" placeholder="Enter a meeting point" required)
-            div(class="col-md")
-                label() Food Lifestyle
+            div(class="col-6")
+                div(class="form-group")
+                    label(for="expiration-date" id="labels") Expiration Date
+                    input(class="form-control" type="date" value="2019-11-26" id="expiration-date")
+                label(id="labels") Food Lifestyle
                 div(class="form-check")
                     input(type="checkbox" class="form-check-input" id="halal")
                     label(class="form-check-label" for="hala" ) Halal
@@ -33,7 +38,4 @@ block content
                 div(class="form-check")
                     input(type="checkbox" class="form-check-input" id="vegetarian")
                     label(class="form-check-label" for="vegetarian") Vegetarian
-                div(class="form-group")
-                    label(for="expiration-date") Expiration Date
-                    input(class="form-control" type="date" value="2019-11-26" id="expiration-date")
-                button(type="submit" class="btn btn-primary") Publish
+                button(type="submit" class="btn btn-primary float-right" id="publish-button") Publish
