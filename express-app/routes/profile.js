@@ -4,7 +4,13 @@ const firebase = require("../config/firebase-config-client");
 
 /* Get profile page */
 router.get("/", (req, res) => {
-    res.render("profile");
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      res.render("profile", { user: user });
+    } else {
+      res.redirect("/");
+    }
   });
+});
 
   module.exports = router;
