@@ -1,0 +1,41 @@
+extends layout
+
+block content 
+    link(rel='stylesheet' href='/stylesheets/donation-form.css')
+    include partials/navbar-authenticated
+    div(class="container")
+        h1(class="donate-header") Create a Listing:
+        br
+        include partials/error-message
+        div(class="row justify-content-between")
+            div(class="col-6")
+                div(class="form-group")
+                    label(for="food-item" id="labels") Food Item
+                    input(type="text" class="form-control" name="food-item" placeholder="Enter food item" id="label-border" required)
+                div(class="form-group" id="labels")
+                    label(for="amount" id="labels") Amount
+                    input(type="text" class="form-control" name="amount" placeholder="Enter food amount" id="label-border" required)
+                div(class="form-group")
+                    label(for="meeting-point" id="labels") Meeting Point
+                    input(type="text" class="form-control" name="meeting-point" placeholder="Enter a meeting point" id="label-border" required)
+            div(class="col-6")
+                div(class="form-group")
+                    label(for="expiration-date" id="labels") Expiration Date
+                    input(class="form-control" type="date" value="2019-11-26" id="expiration-date")
+                label(id="labels") Food Lifestyle
+                div(class="form-check")
+                    input(type="checkbox" class="form-check-input" id="halal")
+                    label(class="form-check-label" for="hala" ) Halal
+                div(class="form-check")
+                    input(type="checkbox" class="form-check-input" id="kosher")
+                    label(class="form-check-label" for="kosher" ) Kosher
+                div(class="form-check")
+                    input(type="checkbox" class="form-check-input" id="pescatarian")
+                    label(class="form-check-label" for="pescatarian" ) Pescatarian
+                div(class="form-check")
+                    input(type="checkbox" class="form-check-input" id="vegan")
+                    label(class="form-check-label" for="vegan" ) Vegan 
+                div(class="form-check")
+                    input(type="checkbox" class="form-check-input" id="vegetarian")
+                    label(class="form-check-label" for="vegetarian") Vegetarian
+                button(type="submit" class="btn btn-primary float-right" id="publish-button") Publish
