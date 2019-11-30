@@ -16,10 +16,6 @@ router.get("/", (req, res) => {
           let donation = document.data();
           donation.id = document.id;
 
-          //convert timestamps to human-readable format for display only
-          donation.expiration_date = donation.expiration_date.toDate();
-          donation.date_added = donation.date_added.toDate();
-
           let dietary_restrictions = "";
           if (donation.halal) dietary_restrictions += "Halal ";
           if (donation.kosher) dietary_restrictions += "Kosher ";
@@ -27,7 +23,7 @@ router.get("/", (req, res) => {
           if (donation.vegan) dietary_restrictions += "Vegan ";
           if (donation.vegetarian) dietary_restrictions += "Vegetarian";
 
-          donation.dietary_restrictions = dietary_restrictions
+          donation.dietary_restrictions = dietary_restrictions;
 
           return donation;
         });
