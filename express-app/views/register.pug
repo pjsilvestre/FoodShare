@@ -3,15 +3,18 @@ extends layout
 block content
     include partials/navbar-unauthenticated
     div(class="container")
-        include partials/error-message
-        form(action="/register" method="POST")
-            div(class="form-group")
-                label(for="username") Username
-                input(type="text" class="form-control" name="username" placeholder="Enter username" required)
-            div(class="form-group")
-                label(for="email") Email address
-                input(type="email" class="form-control" name="email" placeholder="Enter email" required)
-            div(class="form-group")
-                label(for="password") Password
-                input(type="password" class="form-control" name="password" placeholder="Enter password" required)
-            button(type="submit" class="btn btn-primary") Register
+        div(class="card w-50" id="card")
+            h1(class="card-header" id="card_header") Register
+            div(class="container")
+                include partials/error-message
+                form(action="/register" method="POST")
+                    div(class="form-group")
+                        label(for="username" id="login_register_labels") Username
+                        input(type="text" class="form-control" name="username" placeholder="Enter username" id="login_register_input_field" required)
+                    div(class="form-group")
+                        label(for="email" id="login_register_labels") Email address
+                        input(type="email" class="form-control" name="email" placeholder="Enter email" id="login_register_input_field" required)
+                    div(class="form-group")
+                        label(for="password" id="login_register_labels") Password
+                        input(type="password" class="form-control" name="password" placeholder="Enter password" id="login_register_input_field" required)
+                    button(type="submit" class="btn btn-primary" id="login_register_button") Register

@@ -1,15 +1,15 @@
-div(class="container-fluid")
-    nav(class='navbar navbar-expand-xl navbar-dark bg-primary')
-        a(class='navbar-brand' href='/') FoodShare
+div(class="contianer-fluid")
+    div(class="navbar navbar_custom navbar-expand-xl")
+        a(class="nav_brand_a" href="/" id="brand") Foodshare
         button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
             span(class="navbar-toggler-icon")
         div(class="collapse navbar-collapse" id="navbarSupportedContent")
             ul(class='navbar-nav mr-auto')
                 li(class='nav-item')
-                    a(class='nav-link' href='./donation-board') Donation Board
+                    a(class='nav-link' href='./donation-board' id='navbar_label') Donation Board
                 li(class='nav-item')
-                    a(class='nav-link' href='./donation-form') Donate
+                    a(class='nav-link' href='./donation-form' id='navbar_label') Donate
                 li(class='nav-item')
-                    a(class='nav-link' href='./profile') Profile
+                    a(class='nav-link' href='./profile' id='navbar_label') Profile
                 form(class ='form-inline' action='/logout?_method=DELETE' method='POST')
-                    button(type='submit' class="btn btn-light") Logout
+                    button(type='submit' class="btn btn-light" id="login_register_button") Logout

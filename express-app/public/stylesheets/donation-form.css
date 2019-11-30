@@ -1,21 +1,21 @@
-#labels{
-    color: deeppink;
+#labels {
+  color: deeppink;
 }
 
-#label-border{
-    border-color: deepskyblue;
-    border-width: 4px;
+#label-border {
+  border-color: deepskyblue;
+  border-width: 4px;
 }
 
-#expiration-date{
-    border-color: deepskyblue;
-    border-width: 4px;
+#expiration-date {
+  border-color: deepskyblue;
+  border-width: 4px;
 }
 
-#publish-button{
-    font-size: auto;
-    color: deeppink;
-    background-color: midnightblue;
-    border-width: 4px;
-    border-color: dodgerblue;
+#publish-button {
+  font-size: auto;
+  color: deeppink;
+  background-color: midnightblue;
+  border-width: 4px;
+  border-color: deepskyblue;
 }
