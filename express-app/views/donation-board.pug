@@ -18,7 +18,7 @@ block content
                             if donation.dietary_restrictions !== ""
                                 li(class="list-group-item")=`${donation.dietary_restrictions}`
                             li(class="list-group-item")=`Donated by ${donation.donator}`
-                            li(class="list-group-item")=`Meetup Location: ${donation.meeting_point}`
+                            li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
                             li(class="list-group-item")=`Expires ${donation.expiration_date}`
                     div(class="card-footer")
                         form(action="/donation-board" method="POST")
