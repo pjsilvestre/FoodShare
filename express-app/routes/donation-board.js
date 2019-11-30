@@ -29,8 +29,7 @@ router.get("/", (req, res) => {
         });
       });
 
-    //console.log(donations);
-
+    console.log(donations);
     if (user) {
       res.render("donation-board", { user: user, donations });
     } else {
