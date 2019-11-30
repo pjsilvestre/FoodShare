@@ -50,7 +50,6 @@ router.post("/", (req, res) => {
         vegetarian: vegetarian
       };
 
-      console.log(data);
       try {
         database.collection("donations").add(data);
       } catch (error) {

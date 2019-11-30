@@ -12,13 +12,13 @@ block content
                 div(class="col-6")
                     div(class="form-group")
                         label(for="food-item" id="labels") Food Item
-                        input(type="text" class="form-control" name="food_item" placeholder="Enter food item" id="label-border" required)
+                        input(type="text" class="form-control" name="food_item" placeholder="Enter food item" id="food_item" required)
                     div(class="form-group" id="labels")
                         label(for="amount" id="labels") Amount
-                        input(type="text" class="form-control" name="amount" placeholder="Enter food amount" id="label-border" required)
+                        input(type="text" class="form-control" name="amount" placeholder="Enter food amount" id="amount" required)
                     div(class="form-group")
                         label(for="meeting_point" id="labels") Meeting Point
-                        input(type="text" class="form-control" name="meeting_point" placeholder="Enter a meeting point" id="label-border" required)
+                        input(type="text" class="form-control" name="meeting_point" placeholder="Enter a meeting point" id="meeting_point" required)
                 div(class="col-6")
                     div(class="form-group")
                         label(for="expiration_date" id="labels") Expiration Date
@@ -40,3 +40,54 @@ block content
                         input(type="checkbox" class="form-check-input" name="vegetarian" value="true" id="vegetarian")
                         label(class="form-check-label" for="vegetarian") Vegetarian
                     button(type="submit" class="btn btn-primary float-right" id="publish-button") Publish
+
+    script.
+        // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+        
+        let placeSearch, autocomplete;
+
+        let componentForm ={
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        }
+
+        function initAutocomplete() {
+            let meetingPointElement = document.getElementById('meeting_point');
+            
+            let SJSUBoundingArea = new google.maps.LatLngBounds(
+                new google.maps.LatLng(37.3352, -121.8811),
+                new google.maps.LatLng(37.3352, -121.8811));
+                
+            let autocompleteOptions = {
+                types: ['geocode'],
+                 bounds: SJSUBoundingArea
+                 }
+
+            autocomplete = new google.maps.places.Autocomplete(meetingPointElement, autocompleteOptions);
+            autocomplete.setFields(['address_component']);
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        function fillInAddress() {
+            let place = autocomplete.getPlace();
+
+            for (const component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            for (let i = 0; i < place.address_components.length; i++) {
+                let addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    let val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+
+
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&libraries=places&callback=initAutocomplete" async defer).
