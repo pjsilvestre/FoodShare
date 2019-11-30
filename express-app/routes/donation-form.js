@@ -1,26 +1,26 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const admin = require("../config/firebase-config-admin");
-const firebase = require("../config/firebase-config-client");
+const admin = require('../config/firebase-config-admin');
+const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
 /* GET donation-form page */
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   firebase.auth().onAuthStateChanged(user => {
     if (!user) {
-      res.redirect("/");
+      res.redirect('/');
     } else {
-      res.render("donation-form");
+      res.render('donation-form');
     }
   });
 });
 
 /* POST donation-form page, redirecting to donation-board */
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   firebase.auth().onAuthStateChanged(user => {
     if (!user) {
-      res.redirect("/");
+      res.redirect('/');
     } else {
       let amount = req.body.amount;
       let expiration_date = req.body.expiration_date;
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
         longitude
       );
 
-      let status = "unrequested";
+      let status = 'unrequested';
 
       let halal = req.body.halal ? true : false;
       let kosher = req.body.kosher ? true : false;
@@ -59,19 +59,19 @@ router.post("/", (req, res) => {
         kosher: kosher,
         pescatarian: pescatarian,
         vegan: vegan,
-        vegetarian: vegetarian
+        vegetarian: vegetarian,
       };
 
       try {
-        database.collection("donations").add(data);
+        database.collection('donations').add(data);
       } catch (error) {
         if (error) {
           console.log(error);
-          res.redirect("donation-form");
+          res.redirect('donation-form');
         }
       }
 
-      res.redirect("donation-board");
+      res.redirect(303, 'donation-board');
     }
   });
 });
