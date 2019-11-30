@@ -3,12 +3,14 @@ extends layout
 block content
     include partials/navbar-unauthenticated
     div(class="container")
+        h1 Login:
         include partials/error-message
         form(action="/login" method="POST")
             div(class="form-group")
-                label(for="email") Email address
-                input(type="email" class="form-control" name="email" placeholder="Enter email" required)
+                label(for="email" id="login_register_labels") Email address
+                input(type="email" class="form-control" name="email" placeholder="Enter email" id="login_register_input_field" required)
             div(class="form-group")
-                label(for="password") Password
-                input(type="password" class="form-control" name="password" placeholder="Enter password" required)
-            button(type="submit" class="btn btn-primary") Login
+                label(for="password" id="login_register_labels") Password
+                input(type="password" class="form-control" name="password" placeholder="Enter password" id="login_register_input_field" required)
+            div(class="text-left")
+                button(type="submit" class="btn btn-primary" id="login_register_button") Login

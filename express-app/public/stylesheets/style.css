@@ -13,3 +13,20 @@ h1{
   padding: 0px;
   margin-bottom: 25px;
 }
+
+#login_register_labels{
+  color: deeppink;
+}
+
+#login_register_button{
+  color: deeppink;
+  background-color:midnightblue;
+  border-color: deepskyblue;
+  border-width: 4px;
+}
+
+#login_register_input_field{
+    border-color: deepskyblue;
+    border-width: 4px;
+    width: 40%;
+}
