@@ -5,11 +5,12 @@ const firebase = require("../config/firebase-config-client");
 
 const database = admin.firestore();
 
-/* GET donation-board page */
+/* GET my-donations page */
 router.get("/", (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
     await database
       .collection("donations")
+      .where("donator", "==", user.uid)
       .get()
       .then(snapshot => {
         donations = snapshot.docs.map(document => {
@@ -28,12 +29,26 @@ router.get("/", (req, res) => {
           return donation;
         });
       });
-
-    console.log(donations);
     if (user) {
-      res.render("donation-board", { user: user, donations });
+      res.render("my-donations", { user: user, donations });
     } else {
-      res.render("donation-board", { donations });
+      res.redirect("/");
+    }
+  });
+});
+
+/* POST my-donations page, redirecting to my-donations*/
+router.post("/", (req, res) => {
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      res.redirect("/");
+    } else {
+      let id = req.body.id;
+      database
+        .collection("donations")
+        .doc(id)
+        .delete();
+      res.redirect("back");
     }
   });
 });

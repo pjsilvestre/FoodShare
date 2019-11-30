@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    link(rel="stylesheet" href="/stylesheets/my-donations.css")
+    include partials/navbar-authenticated
+    div(class="container")
+        h1 Your Donations:
+        div(class="card-deck")
+            each donation in donations
+                div(class="card text-center")
+                    h5(class="card-header")=`${donation.food_item}`
+                    div(class="card-body")
+                        ul(class="list-group list-group-flush")
+                            li(class="list-group-item")=`Amount: ${donation.amount}`
+                            if donation.dietary_restrictions !== ""
+                                li(class="list-group-item")=`${donation.dietary_restrictions}`
+                            li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                            li(class="list-group-item")=`Expires ${donation.expiration_date}`
+                    div(class="card-footer")
+                        form(action="/my-donations" method="POST")
+                            input(type="hidden" name="id" value=donation.id)
+                            button(type="submit" class="btn btn-danger") Delete
