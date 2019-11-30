@@ -30,10 +30,25 @@ router.get("/", (req, res) => {
         });
       });
     if (user) {
-      console.log(donations);
       res.render("my-donations", { user: user, donations });
     } else {
       res.redirect("/");
+    }
+  });
+});
+
+/* POST my-donations page, redirecting to my-donations*/
+router.post("/", (req, res) => {
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      res.redirect("/");
+    } else {
+      let id = req.body.id;
+      database
+        .collection("donations")
+        .doc(id)
+        .delete();
+      res.redirect("back");
     }
   });
 });
