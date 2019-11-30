@@ -1,9 +1,9 @@
-html{
+html {
   font-size: 18px;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
-h1{
+h1 {
   color: deeppink;
   font-size: 25px;
   padding-top: 1%;
@@ -15,25 +15,25 @@ h1{
   margin-bottom: 25px;
 }
 
-#login_register_labels{
+#login_register_labels {
   color: deeppink;
 }
 
-#login_register_button{
+#login_register_button {
   color: deeppink;
-  background-color:midnightblue;
+  background-color: midnightblue;
   border-color: deepskyblue;
   border-width: 4px;
   margin-bottom: 2%;
 }
 
-#login_register_input_field{
-    border-color: deepskyblue;
-    border-width: 4px;
-    width: 100%;
+#login_register_input_field {
+  border-color: deepskyblue;
+  border-width: 4px;
+  width: 100%;
 }
 
-#card{
+#card {
   border-color: deepskyblue;
   border-width: 4px;
   width: 40%;
@@ -42,7 +42,7 @@ h1{
   margin-top: 4%;
 }
 
-#card_header{
+#card_header {
   border-color: deepskyblue;
   border-width: 4px;
   color: deeppink;
@@ -51,22 +51,22 @@ h1{
   margin-bottom: 2%;
 }
 
-.navbar_custom{
+.navbar_custom {
   background-color: midnightblue;
 }
 
-.nav_brand_a{
+.nav_brand_a {
   color: deeppink;
   padding-right: 55%;
   font-size: xx-large;
 }
 
-.nav_brand_u{
+.nav_brand_u {
   color: deeppink;
   padding-right: 63%;
   font-size: xx-large;
 }
 
-#navbar_label{
+#navbar_label {
   color: deeppink;
 }
