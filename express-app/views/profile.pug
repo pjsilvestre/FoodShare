@@ -1,11 +1,13 @@
 extends layout
 
-block content  
+block content
     if user
         include partials/navbar-authenticated
-        h1 User Profile
-        h2 User: #{user.uid}.
+        div(class="container")
+            h1 Profile:
+            p User: #{user.uid}.
     else
         include partials/navbar-unauthenticated
-        h2 Login to obtain user profile
+        div(class="container")        
+            h1 Login to obtain user profile
     
