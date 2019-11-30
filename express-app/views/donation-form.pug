@@ -69,7 +69,7 @@ block content
                 }
 
             autocomplete = new google.maps.places.Autocomplete(meetingPointElement, autocompleteOptions);
-            autocomplete.setFields(['formatted_address', 'geometry']);
+            autocomplete.setFields(['name', 'geometry']);
             autocomplete.addListener('place_changed', fillInAddress);
         }
 
@@ -79,7 +79,7 @@ block content
             let meetingPointGeopointLongitudeElement = document.getElementById('meeting_point_geopoint_longitude');
 
             let place = autocomplete.getPlace();
-            let address = place.formatted_address;
+            let address = place.name;
             let geopointLatitude = place.geometry.location.lat();
             let geopointLongitude = place.geometry.location.lng();
 
