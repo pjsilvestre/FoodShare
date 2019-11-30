@@ -8,21 +8,18 @@ block content
         include partials/navbar-unauthenticated
     div(class="container")
         h1 Listings:
-        table(class="table")
-            thead
-                tr
-                    th(scope="col") Title
-                    th(scope="col") Description
-                    th(scope="col") Donator
-                    th(scope="col") Status
-                    th(scope="col") Pickup Location
-                    th(scope="col") Expiration Date
-            tbody
-                each donation in donations
-                    tr
-                        td=`${donation.title}`
-                        td=`${donation.description}`
-                        td=`${donation.donator}`
-                        td=`${donation.status}`
-                        td=`${donation.pickup_location_address}`
-                        td=`${donation.expiration_date}`
+        div(class="card-deck")
+            each donation in donations
+                div(class="card text-center")
+                    h5(class="card-header")=`${donation.food_item}`
+                    div(class="card-body")
+                        ul(class="list-group list-group-flush")
+                            li(class="list-group-item")=`Amount: ${donation.amount}`
+                            if donation.dietary_restrictions !== ""
+                                li(class="list-group-item")=`${donation.dietary_restrictions}`
+                            li(class="list-group-item")=`Donated by ${donation.donator}`
+                            li(class="list-group-item")=`Meetup Location: ${donation.meeting_point}`
+                            li(class="list-group-item")=`Expires ${donation.expiration_date}`
+                    div(class="card-footer")
+                        form(action="/donation-board" method="POST")
+                                button(type="submit" class="btn btn-primary") Request
