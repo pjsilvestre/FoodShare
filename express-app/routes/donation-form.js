@@ -25,20 +25,12 @@ router.post("/", (req, res) => {
       let amount = req.body.amount;
       let expiration_date = req.body.expiration_date;
       let food_item = req.body.food_item;
-
       let meeting_point = req.body.meeting_point;
+
       let latitude = req.body.meeting_point_geopoint_latitude;
       let longitude = req.body.meeting_point_geopoint_longitude;
-
-      console.log(latitude);
-      console.log(longitude);
-
       latitude = parseFloat(latitude);
       longitude = parseFloat(longitude);
-
-      console.log(`${typeof latitude} ${latitude}`);
-      console.log(`${typeof longitude} ${longitude}`);
-
       let meeting_point_geopoint = new admin.firestore.GeoPoint(
         latitude,
         longitude
@@ -69,8 +61,6 @@ router.post("/", (req, res) => {
         vegan: vegan,
         vegetarian: vegetarian
       };
-
-      console.table(data);
 
       try {
         database.collection("donations").add(data);
