@@ -25,6 +25,12 @@ router.get('/', (req, res) => {
 
           donation.dietary_restrictions = dietary_restrictions;
 
+          var curDate = new Date();
+          var donDate = new Date(donation.expiration_date);
+          if(curDate.getTime() > donDate.getTime()){
+            donation.status = 'expired';
+          }
+
           return donation;
         });
       });
