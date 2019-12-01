@@ -1,19 +1,15 @@
-.navbar_custom {
-    background-color: midnightblue;
-  }
-  
-  .nav_brand_a {
-    color: deeppink;
-    padding-right: 55%;
-    font-size: xx-large;
-  }
-  
-  .nav_brand_u {
-    color: deeppink;
-    padding-right: 63%;
-    font-size: xx-large;
-  }
-  
-  #navbar_label {
-    color: deeppink;
-  }
+.nav_brand_a {
+  color: deeppink;
+  padding-right: 55%;
+  font-size: xx-large;
+}
+
+.nav_brand_u {
+  color: deeppink;
+  padding-right: 63%;
+  font-size: xx-large;
+}
+
+#navbar_label {
+  color: deeppink;
+}

@@ -10,7 +10,13 @@
   margin-bottom: 2%;
 }
 
-#login_register_input_field {
+#login-email{
+  border-color: deepskyblue;
+  border-width: 4px;
+  width: 100%;
+}
+
+#login-password{
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
