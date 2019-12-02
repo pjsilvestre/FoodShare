@@ -1,0 +1,8 @@
+div.card-deck {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+div.card-deck div.card {
+    margin: 25px;
+}

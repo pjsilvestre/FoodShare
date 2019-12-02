@@ -8,7 +8,7 @@ block content
         include partials/navbar-unauthenticated
     div(class="container")
         h1 Listings:
-        div(class="card-columns")
+        div(class="card-deck")
             each donation in donations
                 if donation.status == 'unrequested'
                     div(class="card text-center")

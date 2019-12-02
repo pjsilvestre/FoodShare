@@ -26,6 +26,24 @@ router.get('/', (req, res) => {
 
           donation.dietary_restrictions = dietary_restrictions;
 
+          let date_added = donation.date_added;
+          let pickup_date = donation.pickup_date;
+          let expiration_date = donation.expiration_date;
+
+          // Firestore timestamp -> JavaScript date object
+          date_added = date_added.toDate();
+          pickup_date = pickup_date.toDate();
+          expiration_date = expiration_date.toDate();
+
+          // JavaScript date objects -> DOM strings
+          date_added = date_added.toLocaleString();
+          pickup_date = pickup_date.toLocaleString();
+          expiration_date = expiration_date.toLocaleString();
+
+          donation.date_added = date_added;
+          donation.pickup_date = pickup_date;
+          donation.expiration_date = expiration_date;
+
           return donation;
         });
       });
