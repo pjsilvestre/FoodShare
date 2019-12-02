@@ -1,24 +1,24 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const firebase = require("../config/firebase-config-client");
+const firebase = require('../config/firebase-config-client');
 
 /* GET login page */
-router.get("/", (req, res) => {
-  res.render("login");
+router.get('/', (req, res) => {
+  res.render('login');
 });
 
 /* POST login page */
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      res.redirect("/");
+      res.redirect('/');
     })
     .catch(error => {
-      res.render("login", { errorMessage: error.message });
+      res.render('login', { errorMessage: error });
     });
 });
 

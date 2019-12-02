@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
           return donation;
         });
       });
-      
+
     res.render('my-donations', { user: user, donations });
   });
 });

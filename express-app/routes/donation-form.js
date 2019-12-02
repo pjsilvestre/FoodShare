@@ -79,7 +79,7 @@ router.post('/', (req, res) => {
           .add(data)
           .catch({});
       } catch (error) {
-        let messages = { error: error };
+        let messages = { errorMessage: error };
         res.render('index', { user, messages });
       }
 

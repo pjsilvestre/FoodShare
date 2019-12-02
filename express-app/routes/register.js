@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const admin = require("../config/firebase-config-admin");
+const admin = require('../config/firebase-config-admin');
 
 /* GET register page. */
-router.get("/", (req, res) => {
-  res.render("register");
+router.get('/', (req, res) => {
+  res.render('register');
 });
 
 /* POST register page. */
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -20,14 +20,13 @@ router.post("/", (req, res) => {
       email: email,
       emailVerified: false,
       password: password,
-      disabled: false
+      disabled: false,
     })
     .then(() => {
-      // See the UserRecord reference doc for the contents of userRecord.
-      res.render("login");
+      res.redirect('login');
     })
     .catch(error => {
-      res.render("register", { errorMessage: error });
+      res.render('register', { errorMessage: error });
     });
 });
 
