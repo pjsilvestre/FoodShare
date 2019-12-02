@@ -5,3 +5,19 @@ block content
     include partials/navbar-authenticated
     div(class="container")
         h1 Your Requests:
+        div(class="card-deck")
+            each donation in donations
+                div(class="card text-center")
+                    h5(class="card-header")=`${donation.food_item}`
+                    ul(class="list-group list-group-flush")
+                        li(class="list-group-item")=`Amount: ${donation.amount}`
+                        li(class="list-group-item")=`Donated by: ${donation.donator}`
+                        if donation.dietary_restrictions !== ""
+                            li(class="list-group-item")=`${donation.dietary_restrictions}`
+                        li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                        li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                        li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+                    div(class="card-footer")
+                        form(action="/my-donations" method="POST")
+                            input(type="hidden" name="id" value=donation.id)
+                            button(type="submit" class="btn btn-danger") Cancel
