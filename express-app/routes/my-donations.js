@@ -118,9 +118,59 @@ router.post('/accept', (req, res) => {
   unsubscribe();
 });
 
-/* POST my-donations page, deleting a donation, redirecting to my-donations*/
+/* POST my-donations page, fulfilling a request, redirecting to my-donations */
+router.post('/fulfill', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            fulfilled_donator: true,
+          });
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-donations');
+    }
+  });
+
+  unsubscribe();
+});
+
+/* POST my-donations page, hiding a donation, redirecting to my-donations */
+router.post('/hide', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            hidden_donator: true,
+          });
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-donations');
+    }
+  });
+
+  unsubscribe();
+});
+
+/* POST my-donations page, deleting a donation, redirecting to my-donations */
 router.post('/delete', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     } else {
@@ -139,6 +189,8 @@ router.post('/delete', (req, res) => {
       }
     }
   });
+
+  unsubscribe();
 });
 
 module.exports = router;

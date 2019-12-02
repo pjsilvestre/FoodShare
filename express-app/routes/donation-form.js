@@ -65,17 +65,19 @@ router.post('/', (req, res) => {
           );
         }
 
-        let requested = false;
-        let request_accepted = false;
-        let expired = false;
-        let fulfilled_donator = false;
-        let fulfilled_donatee = false;
+        const requested = false;
+        const request_accepted = false;
+        const expired = false;
+        const fulfilled_donator = false;
+        const fulfilled_donatee = false;
+        const hidden_donator = false;
+        const hidden_donatee = false;
 
-        let halal = req.body.halal ? true : false;
-        let kosher = req.body.kosher ? true : false;
-        let pescatarian = req.body.pescatarian ? true : false;
-        let vegan = req.body.vegan ? true : false;
-        let vegetarian = req.body.vegetarian ? true : false;
+        const halal = req.body.halal ? true : false;
+        const kosher = req.body.kosher ? true : false;
+        const pescatarian = req.body.pescatarian ? true : false;
+        const vegan = req.body.vegan ? true : false;
+        const vegetarian = req.body.vegetarian ? true : false;
 
         // create payload to send to Firestore
         let data = {
@@ -93,6 +95,8 @@ router.post('/', (req, res) => {
           expired: expired,
           fulfilled_donator: fulfilled_donator,
           fulfilled_donatee: fulfilled_donatee,
+          hidden_donator: hidden_donator,
+          hidden_donatee: hidden_donatee,
 
           halal: halal,
           kosher: kosher,
