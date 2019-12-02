@@ -36,19 +36,17 @@ router.use(async (req, res, next) => {
   next();
 });
 
-/* GET my-donations page */
+/* GET my-requests page */
 router.get('/', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     }
     let donations;
-
     await database
       .collection('donations')
-      .where('donator', '==', user.uid)
+      .where('donatee', '==', user.uid)
       .orderBy('request_accepted', 'desc') // if a donation request has been accepted, show it first...
-      .orderBy('requested', 'desc') // ...then any donations that have yet to be accepted
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
@@ -87,13 +85,14 @@ router.get('/', (req, res) => {
         });
       });
 
-    res.render('my-donations', { user: user, donations });
-    unsubscribe();
+    res.render('my-requests', { user: user, donations });
   });
+
+  unsubscribe();
 });
 
-/* POST my-donations page, accepting a request, redirecting to my-donations */
-router.post('/accept', (req, res) => {
+/* POST my-requests page, cancelling a request, redirecting to my-requests*/
+router.post('/cancel', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
@@ -105,40 +104,18 @@ router.post('/accept', (req, res) => {
           .collection('donations')
           .doc(donation_id)
           .update({
-            request_accepted: true,
+            donatee: null,
+            requested: false,
+            request_accepted: false,
           });
       } catch (error) {
         res.render('index', { user: user, errorMessage: error });
       }
 
-      res.redirect('/my-donations');
+      res.redirect('/my-requests');
     }
   });
 
   unsubscribe();
 });
-
-/* POST my-donations page, deleting a donation, redirecting to my-donations*/
-router.post('/delete', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
-    if (!user) {
-      res.redirect('/');
-    } else {
-      try {
-        let id = req.body.donation_id;
-        await database
-          .collection('donations')
-          .doc(id)
-          .delete();
-        res.redirect('back');
-      } catch (error) {
-        if (error) {
-          console.err(error);
-          res.redirect('back');
-        }
-      }
-    }
-  });
-});
-
 module.exports = router;

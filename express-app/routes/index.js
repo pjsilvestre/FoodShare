@@ -1,28 +1,26 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const firebase = require("../config/firebase-config-client");
+const firebase = require('../config/firebase-config-client');
 
 /* GET home page. */
-router.get("/", (req, res) => {
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      res.render("index", { user: user });
-    } else {
-      res.render("index");
-    }
+router.get('/', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    res.render('index', { user: user });
   });
+
+  unsubscribe();
 });
 
 /* DELETE home page (logout).*/
-router.delete("/logout", (req, res) => {
+router.post('/logout', (req, res) => {
   firebase
     .auth()
     .signOut()
-    .then(res.redirect("/"))
     .catch(error => {
-      console.log(error);
-      res.redirect("/");
+      res.render('index', { errorMessage: error });
     });
+
+  res.redirect('/');
 });
 
 module.exports = router;

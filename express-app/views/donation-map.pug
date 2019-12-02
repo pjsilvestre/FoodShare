@@ -38,9 +38,9 @@ block content
         firebase.initializeApp(firebaseConfig);
 
         function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 37.3351874, lng: -121.88107150000002},
-                zoom: 17
+            map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 37.3351874, lng: -121.88107150000002},
+            zoom: 17
             });
 
             firebase.firestore().collection('donations').get()
@@ -58,6 +58,6 @@ block content
                 });
             });
         }
-        
+
     script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&callback=initMap"
     type="text/javascript")

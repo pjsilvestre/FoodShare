@@ -6,8 +6,9 @@ const firebase = require('../config/firebase-config-client');
 const database = admin.firestore();
 
 /* Get maps page */
-router.get("/", (req, res) => {
-  let donations = firebase.auth().onAuthStateChanged(async user => {
+router.get('/', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    let donations;
     await database
       .collection('donations')
       .get()
@@ -22,12 +23,11 @@ router.get("/", (req, res) => {
     if (user) {
       res.render('donation-map', { user: user, donations: donations });
     } else {
-      res.redirect("/");
+      res.redirect('/');
     }
   });
+
+  unsubscribe();
 });
 
-
-
-
-  module.exports = router;
+module.exports = router;
