@@ -1,8 +1,13 @@
 div.card-deck {
-    display: grid;
-    grid-template-columns: auto;
+  display: grid;
+  grid-template-columns: auto;
 }
 
 div.card-deck div.card {
-    margin: 25px 0 25px;
+  margin: 25px 0 25px;
+}
+
+div.card-deck div.card div.card-footer {
+  display: grid;
+  grid-template-columns: auto auto;
 }

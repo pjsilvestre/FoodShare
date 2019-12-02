@@ -46,7 +46,6 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donator', '==', user.uid)
-      .where('expired', '==', false)
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
