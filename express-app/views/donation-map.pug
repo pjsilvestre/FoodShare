@@ -4,12 +4,27 @@ block content
     link(rel="stylesheet" href="/stylesheets/donation-map.css")
     if user
         include partials/navbar-authenticated
-        src(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&callback=initMap"
-  type="text/javascript")
-        div(class="map")
-            h1 Profile:
-            p User: #{user.uid}.
+        style.
+            /* Always set the map height explicitly to define the size of the div
+            * element that contains the map. */
+            #map {
+                height: 900px;
+                width: 100%;
+            }
+        body
+            #map
     else
         include partials/navbar-unauthenticated
         div(class="container")        
             h1 Login to access maps
+
+    script.
+        var map;
+        function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 37.3351874, lng: -121.88107150000002},
+                zoom: 17
+            });
+        }
+    script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&callback=initMap"
+    type="text/javascript")
