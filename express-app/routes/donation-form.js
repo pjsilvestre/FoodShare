@@ -74,13 +74,9 @@ router.post('/', (req, res) => {
           vegetarian: vegetarian,
         };
 
-        await database
-          .collection('donations')
-          .add(data)
-          .catch({});
+        await database.collection('donations').add(data);
       } catch (error) {
-        let messages = { errorMessage: error };
-        res.render('index', { user, messages });
+        res.render('index', { user: user, errorMessage: error });
       }
 
       res.redirect('donation-board');

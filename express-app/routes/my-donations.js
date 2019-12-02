@@ -58,6 +58,7 @@ router.get('/', (req, res) => {
 });
 
 /* POST my-donations page, redirecting to my-donations*/
+
 router.post('/', (req, res) => {
   firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
