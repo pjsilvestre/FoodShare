@@ -5,16 +5,15 @@ const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
-/* GET my-donations page */
+/* get my-requests page */
 router.get('/', (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     }
-
     await database
       .collection('donations')
-      .where('donator', '==', user.uid)
+      .where('donatee', '==', user.uid)
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
@@ -52,31 +51,8 @@ router.get('/', (req, res) => {
           return donation;
         });
       });
-      
-    res.render('my-donations', { user: user, donations });
-  });
-});
 
-/* POST my-donations page, redirecting to my-donations*/
-router.post('/', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
-    if (!user) {
-      res.redirect('/');
-    } else {
-      try {
-        let id = req.body.id;
-        await database
-          .collection('donations')
-          .doc(id)
-          .delete();
-        res.redirect('back');
-      } catch (error) {
-        if (error) {
-          console.err(error);
-          res.redirect('back');
-        }
-      }
-    }
+    res.render('my-requests', { user: user, donations });
   });
 });
 
