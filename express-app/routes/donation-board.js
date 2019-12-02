@@ -97,6 +97,15 @@ router.post('/', (req, res) => {
     } else {
       try {
         let donation_id = req.body.donation_id;
+        let donatee = user.uid;
+
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            donatee: donatee,
+            requested: true,
+          });
       } catch (error) {
         res.render('index', { user: user, errorMessage: error });
       }
