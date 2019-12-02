@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
     await database
       .collection('donations')
+      .orderBy('expiration_date')
       .get()
       .then(snapshot => {
         donations = snapshot.docs.map(document => {

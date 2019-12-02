@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donator', '==', user.uid)
+      .orderBy('expiration_date')
       .get()
       .then(snapshot => {
         donations = snapshot.docs.map(document => {
