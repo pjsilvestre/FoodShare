@@ -5,6 +5,37 @@ const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
+/* Check if donations are expired */
+router.use(async (req, res, next) => {
+  try {
+    await database
+      .collection('donations')
+      .where('expired', '==', false)
+      .get()
+      .then(snapshot => {
+        snapshot.docs.map(document => {
+          let donation = document.data();
+          let donation_id = document.id;
+
+          let currentDate = new Date(Date.now());
+          let expiration_date = donation.expiration_date.toDate();
+
+          if (expiration_date < currentDate) {
+            database
+              .collection('donations')
+              .doc(donation_id)
+              .update({ expired: true });
+          }
+        });
+      });
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log('Expired donation check complete.');
+  next();
+});
+
 /* GET my-donations page */
 router.get('/', (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
@@ -15,6 +46,7 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donator', '==', user.uid)
+      .where('expired', '==', false)
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {

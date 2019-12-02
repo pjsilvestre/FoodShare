@@ -5,7 +5,38 @@ const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
-/* get my-requests page */
+/* Check if donations are expired */
+router.use(async (req, res, next) => {
+  try {
+    await database
+      .collection('donations')
+      .where('expired', '==', false)
+      .get()
+      .then(snapshot => {
+        snapshot.docs.map(document => {
+          let donation = document.data();
+          let donation_id = document.id;
+
+          let currentDate = new Date(Date.now());
+          let expiration_date = donation.expiration_date.toDate();
+
+          if (expiration_date < currentDate) {
+            database
+              .collection('donations')
+              .doc(donation_id)
+              .update({ expired: true });
+          }
+        });
+      });
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log('Expired donation check complete.');
+  next();
+});
+
+/* Get my-requests page */
 router.get('/', (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
