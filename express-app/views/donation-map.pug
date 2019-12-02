@@ -1,13 +1,15 @@
 extends layout
 
 block content
-    link(rel="stylesheet" href="/stylesheets/profile.css")
+    link(rel="stylesheet" href="/stylesheets/donation-map.css")
     if user
         include partials/navbar-authenticated
-        div(class="container")
+        src(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&callback=initMap"
+  type="text/javascript")
+        div(class="map")
             h1 Profile:
             p User: #{user.uid}.
     else
         include partials/navbar-unauthenticated
         div(class="container")        
-            h1 Login to obtain user profile
+            h1 Login to access maps
