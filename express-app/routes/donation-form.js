@@ -64,6 +64,7 @@ router.post('/', (req, res) => {
         }
 
         let requested = false;
+        let request_accepted = false;
         let expired = false;
         let fulfilled_donator = false;
         let fulfilled_donatee = false;
@@ -86,6 +87,7 @@ router.post('/', (req, res) => {
           meeting_point: meeting_point,
           meeting_point_geopoint: meeting_point_geopoint,
           requested: requested,
+          request_accepted: request_accepted,
           expired: expired,
           fulfilled_donator: fulfilled_donator,
           fulfilled_donatee: fulfilled_donatee,

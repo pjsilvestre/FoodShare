@@ -7,7 +7,7 @@ block content
         h1 Your Requests:
         div(class="card-deck")
             each donation in donations
-                if donation.requestAccepted
+                if donation.request_accepted
                     div(class="card text-center")
                         h5(class="card-header")=`${donation.food_item}`
                         ul(class="list-group list-group-flush")
