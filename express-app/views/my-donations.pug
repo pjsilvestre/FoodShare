@@ -8,7 +8,7 @@ block content
         div(class="card-deck")
             each donation in donations
                 div(class="card text-center")
-                    if donation.status == "requested"
+                    if donation.requested
                         h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}`
                     else
                         h5(class="card-header")=`${donation.food_item}`
@@ -21,5 +21,5 @@ block content
                         li(class="list-group-item")=`Expires: ${donation.expiration_date}`
                     div(class="card-footer")
                         form(action="/my-donations" method="POST")
-                            input(type="hidden" name="id" value=donation.id)
+                            input(type="hidden" name="donation_id" value=donation.id)
                             button(type="submit" class="btn btn-danger") Delete

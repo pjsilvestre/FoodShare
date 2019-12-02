@@ -97,7 +97,7 @@ router.post('/', (req, res) => {
       res.redirect('/');
     } else {
       try {
-        let id = req.body.id;
+        let id = req.body.donation_id;
         await database
           .collection('donations')
           .doc(id)
