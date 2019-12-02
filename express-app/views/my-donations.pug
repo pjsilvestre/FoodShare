@@ -8,7 +8,10 @@ block content
         div(class="card-deck")
             each donation in donations
                 div(class="card text-center")
-                    h5(class="card-header")=`${donation.food_item}`
+                    if donation.status == "requested"
+                        h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}`
+                    else
+                        h5(class="card-header")=`${donation.food_item}`
                     ul(class="list-group list-group-flush")
                         li(class="list-group-item")=`Amount: ${donation.amount}`
                         if donation.dietary_restrictions !== ""
