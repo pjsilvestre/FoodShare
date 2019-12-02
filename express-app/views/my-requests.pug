@@ -21,10 +21,10 @@ block content
                         div(class="card-footer")
                             form(action="/my-requests/fulfill" method="POST")
                                 input(type="hidden" name="donation_id" value=donation.id)
-                                button(type="submit" class="btn btn-success") Fulfill
+                                button(type="submit" class="btn btn-success") Request Accepted - Fulfill
                             form(action="/my-requests/cancel" method="POST")
                                 input(type="hidden" name="donation_id" value=donation.id)
-                                button(type="submit" class="btn btn-danger") Cancel
+                                button(type="submit" class="btn btn-danger") Cancel Request
                 else
                     div(class="card text-center")
                         h5(class="card-header")=`${donation.food_item}`
@@ -39,7 +39,7 @@ block content
                         div(class="card-footer")
                             form()
                                 input(type="hidden")
-                                button(type="submit" class="btn btn-warning" disabled) Request Pending
+                                button(type="submit" class="btn btn-secondary" disabled) Request Pending
                             form(action="/my-requests/cancel" method="POST")
                                 input(type="hidden" name="donation_id" value=donation.id)
                                 button(type="submit" class="btn btn-danger") Cancel Request
