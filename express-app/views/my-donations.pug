@@ -20,6 +20,6 @@ block content
                         li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
                         li(class="list-group-item")=`Expires: ${donation.expiration_date}`
                     div(class="card-footer")
-                        form(action="/my-donations" method="POST")
+                        form(action="/my-donations/delete" method="POST")
                             input(type="hidden" name="donation_id" value=donation.id)
                             button(type="submit" class="btn btn-danger") Delete

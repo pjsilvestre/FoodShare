@@ -87,8 +87,8 @@ router.get('/', (req, res) => {
   });
 });
 
-/* POST my-requests page */
-router.post('/', (req, res) => {
+/* POST my-requests page, cancelling a request, redirecting to my-requests*/
+router.post('/cancel', (req, res) => {
   firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');

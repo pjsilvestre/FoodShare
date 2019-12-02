@@ -89,9 +89,8 @@ router.get('/', (req, res) => {
   });
 });
 
-/* POST my-donations page, redirecting to my-donations*/
-
-router.post('/', (req, res) => {
+/* POST my-donations page, deleting a donation, redirecting to my-donations*/
+router.post('/delete', (req, res) => {
   firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
