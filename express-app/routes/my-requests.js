@@ -91,7 +91,57 @@ router.get('/', (req, res) => {
   unsubscribe();
 });
 
-/* POST my-requests page, cancelling a request, redirecting to my-requests*/
+/* POST my-requests page, fulfilling a request, redirecting to my-requests */
+router.post('/fulfill', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            fulfilled_donatee: true,
+          });
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-requests');
+    }
+  });
+
+  unsubscribe();
+});
+
+/* POST my-requests page, hiding a request, redirecting to my-requests */
+router.post('/hide', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            hidden_donatee: true,
+          });
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-requests');
+    }
+  });
+
+  unsubscribe();
+});
+
+/* POST my-requests page, cancelling a request, redirecting to my-requests */
 router.post('/cancel', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
