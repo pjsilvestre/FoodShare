@@ -22,9 +22,11 @@ block content
                             li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
                             li(class="list-group-item")=`Expires: ${donation.expiration_date}`
                         div(class="card-footer")
-                            if user && donation.donator == user.uid
-                                button(type="submit" class="btn btn-secondary" disabled) Request
-                            else
-                                form(action="/donation-board" method="POST")
+                            if user
+                                if donation.donator == user.uid
+                                    button(type="submit" class="btn btn-secondary" disabled) Request
+                                else
                                     input(type="hidden" name="donation" value=donation)
                                     button(type="submit" class="btn btn-primary") Request
+                            else
+                                button(type="submit" class="btn btn-secondary" disabled) Request
