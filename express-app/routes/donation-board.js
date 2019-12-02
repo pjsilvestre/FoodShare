@@ -10,6 +10,8 @@ router.get('/', (req, res) => {
   let donations = firebase.auth().onAuthStateChanged(async user => {
     await database
       .collection('donations')
+      .where('expired', '==', false)
+      .where('requested', '==', false)
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
@@ -66,6 +68,21 @@ router.get('/', (req, res) => {
 });
 
 /* POST donation-board page */
-router.post('/', (req, res) => {});
+router.post('/', (req, res) => {
+  firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-requests');
+    }
+  });
+});
 
 module.exports = router;
