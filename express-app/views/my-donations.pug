@@ -20,7 +20,7 @@ block content
                         div(class="card-footer")
                             form(action="/my-donations/accept" method="POST")
                                 input(type="hidden" name="donation_id" value=donation.id)
-                                button(type="submit" class="btn btn-success") Accept Request
+                                button(type="submit" class="btn btn-warning") Accept Request
                             form(action=("/my-donations/delete") method="POST")
                                 input(type="hidden" name="donation_id" value=donation.id)
                                 button(type="submit" class="btn btn-danger") Delete Donation

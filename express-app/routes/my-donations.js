@@ -47,6 +47,8 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donator', '==', user.uid)
+      .orderBy('request_accepted', 'desc') // if a donation request has been accepted, show it first...
+      .orderBy('requested', 'desc') // ...then any donations that have yet to be accepted
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
@@ -91,7 +93,30 @@ router.get('/', (req, res) => {
 });
 
 /* POST my-donations page, accepting a request, redirecting to my-donations */
-router.post('/accept', (req, res) => {});
+router.post('/accept', (req, res) => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      res.redirect('/');
+    } else {
+      try {
+        let donation_id = req.body.donation_id;
+
+        await database
+          .collection('donations')
+          .doc(donation_id)
+          .update({
+            request_accepted: true,
+          });
+      } catch (error) {
+        res.render('index', { user: user, errorMessage: error });
+      }
+
+      res.redirect('/my-donations');
+    }
+  });
+
+  unsubscribe();
+});
 
 /* POST my-donations page, deleting a donation, redirecting to my-donations*/
 router.post('/delete', (req, res) => {

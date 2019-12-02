@@ -46,6 +46,7 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donatee', '==', user.uid)
+      .orderBy('request_accepted', 'desc') // if a donation request has been accepted, show it first...
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
@@ -105,6 +106,7 @@ router.post('/cancel', (req, res) => {
           .update({
             donatee: null,
             requested: false,
+            request_accepted: false,
           });
       } catch (error) {
         res.render('index', { user: user, errorMessage: error });
