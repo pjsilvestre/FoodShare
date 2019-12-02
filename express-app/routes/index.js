@@ -15,13 +15,17 @@ router.get('/', (req, res) => {
 
 /* DELETE home page (logout).*/
 router.delete('/logout', (req, res) => {
-  firebase
-    .auth()
-    .signOut()
-    .then(res.redirect('/'))
-    .catch(error => {
-      res.render('index', { errorMessage: error });
-    });
+  try {
+    firebase
+      .auth()
+      .signOut()
+      .then(res.render('index', { errorMessage: 'Logged out successfully!' }))
+      .catch(error => {
+        throw error;
+      });
+  } catch (error) {
+    res.render('index', { errorMessage: error });
+  }
 });
 
 module.exports = router;
