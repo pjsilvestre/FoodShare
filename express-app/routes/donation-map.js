@@ -7,7 +7,8 @@ const database = admin.firestore();
 
 /* Get maps page */
 router.get('/', (req, res) => {
-  let donations = firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    let donations;
     await database
       .collection('donations')
       .get()
@@ -25,6 +26,8 @@ router.get('/', (req, res) => {
       res.redirect('/');
     }
   });
+
+  unsubscribe();
 });
 
 module.exports = router;

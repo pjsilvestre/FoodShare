@@ -8,18 +8,17 @@ router.get('/', (req, res) => {
 });
 
 /* POST login page */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  firebase
+  await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      res.redirect('/');
-    })
     .catch(error => {
       res.render('login', { errorMessage: error });
     });
+
+  res.redirect('/');
 });
 
 module.exports = router;

@@ -38,10 +38,11 @@ router.use(async (req, res, next) => {
 
 /* GET my-requests page */
 router.get('/', (req, res) => {
-  let donations = firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     }
+    let donations;
     await database
       .collection('donations')
       .where('donatee', '==', user.uid)
@@ -85,11 +86,13 @@ router.get('/', (req, res) => {
 
     res.render('my-requests', { user: user, donations });
   });
+
+  unsubscribe();
 });
 
 /* POST my-requests page, cancelling a request, redirecting to my-requests*/
 router.post('/cancel', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     } else {
@@ -110,5 +113,7 @@ router.post('/cancel', (req, res) => {
       res.redirect('/my-requests');
     }
   });
+
+  unsubscribe();
 });
 module.exports = router;

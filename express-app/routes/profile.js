@@ -4,13 +4,15 @@ const firebase = require('../config/firebase-config-client');
 
 /* Get profile page */
 router.get('/', (req, res) => {
-  firebase.auth().onAuthStateChanged(user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(user => {
     if (user) {
       res.render('profile', { user: user });
     } else {
       res.redirect('/');
     }
   });
+
+  unsubscribe();
 });
 
 module.exports = router;

@@ -38,7 +38,8 @@ router.use(async (req, res, next) => {
 
 /* GET donation-board page */
 router.get('/', (req, res) => {
-  let donations = firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    let donations;
     await database
       .collection('donations')
       .where('expired', '==', false)
@@ -87,17 +88,19 @@ router.get('/', (req, res) => {
       res.render('donation-board', { donations });
     }
   });
+
+  unsubscribe();
 });
 
 /* POST donation-board page */
 router.post('/', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     } else {
       try {
         let donation_id = req.body.donation_id;
-        let donatee = user.uid;
+        let donatee = await user.uid;
 
         await database
           .collection('donations')
@@ -113,6 +116,8 @@ router.post('/', (req, res) => {
       res.redirect('/my-requests');
     }
   });
+
+  unsubscribe();
 });
 
 module.exports = router;

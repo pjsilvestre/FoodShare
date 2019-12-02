@@ -38,10 +38,11 @@ router.use(async (req, res, next) => {
 
 /* GET my-donations page */
 router.get('/', (req, res) => {
-  let donations = firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     }
+    let donations;
 
     await database
       .collection('donations')
@@ -85,8 +86,12 @@ router.get('/', (req, res) => {
       });
 
     res.render('my-donations', { user: user, donations });
+    unsubscribe();
   });
 });
+
+/* POST my-donations page, accepting a request, redirecting to my-donations */
+router.post('/accept', (req, res) => {});
 
 /* POST my-donations page, deleting a donation, redirecting to my-donations*/
 router.post('/delete', (req, res) => {

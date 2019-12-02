@@ -7,18 +7,20 @@ const database = admin.firestore();
 
 /* GET donation-form page */
 router.get('/', (req, res) => {
-  firebase.auth().onAuthStateChanged(user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(user => {
     if (!user) {
       res.redirect('/');
     } else {
       res.render('donation-form');
     }
   });
+
+  unsubscribe();
 });
 
 /* POST donation-form page, redirecting to donation-board */
 router.post('/', (req, res) => {
-  firebase.auth().onAuthStateChanged(async user => {
+  let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       res.redirect('/');
     } else {
@@ -107,6 +109,8 @@ router.post('/', (req, res) => {
       res.redirect('donation-board');
     }
   });
+
+  unsubscribe();
 });
 
 module.exports = router;
