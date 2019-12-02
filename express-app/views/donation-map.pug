@@ -13,18 +13,51 @@ block content
             }
         body
             #map
+
     else
         include partials/navbar-unauthenticated
         div(class="container")        
             h1 Login to access maps
 
+    script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js")
+    script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js")
+
     script.
         var map;
+        var firebaseConfig = {
+            apiKey: "AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y",
+            authDomain: "foodshare-d3eee.firebaseapp.com",
+            databaseURL: "https://foodshare-d3eee.firebaseio.com",
+            projectId: "foodshare-d3eee",
+            storageBucket: "foodshare-d3eee.appspot.com",
+            messagingSenderId: "265720897822",
+            appId: "1:265720897822:web:92ec456677a9e3716a690f",
+            measurementId: "G-KS792GTVDM"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
         function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 37.3351874, lng: -121.88107150000002},
                 zoom: 17
             });
+
+            firebase.firestore().collection('donations').get()
+            .then(snapshot => {
+                donations = snapshot.docs.map(document => {
+                let donation = document.data();
+                donation.id = document.id;
+                var pos = {lat: donation.meeting_point_geopoint.latitude, lng: donation.meeting_point_geopoint.longitude};
+                console.log(pos.lat + " " + pos.lon);
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: 'Hello World!'
+                });
+                });
+            });
         }
+        
     script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&callback=initMap"
     type="text/javascript")
