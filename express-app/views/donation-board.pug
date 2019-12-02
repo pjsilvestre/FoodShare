@@ -10,7 +10,7 @@ block content
         h1 Listings:
         div(class="card-deck")
             each donation in donations
-                - if(donation.status != 'expired')
+                - if(donation.status == 'unrequested')
                     div(class="card text-center")
                         h5(class="card-header")=`${donation.food_item}`
                         div(class="card-body")
@@ -25,4 +25,5 @@ block content
                                 li(class="list-group-item")=`Status: ${donation.status}`
                             div(class="card-footer")
                                 form(action="/donation-board" method="POST")
-                                    button(type="submit" class="btn btn-primary") Request
+                                    button(type="submit" class="btn btn-primary" onclick = 'requestDonation(' + donation + ')') Request 
+                                    //- function requestDonation(donation) { donation.status = 'requested', donatee = user.id }
