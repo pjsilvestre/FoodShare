@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
       res.render('login', { errorMessage: error });
     });
 
-  res.redirect('/');
+  res.redirect('/donation-map');
 });
 
 module.exports = router;

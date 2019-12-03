@@ -1,9 +1,10 @@
 /* Foodshare */
 #brand {
-  color: deeppink;
+  color: #fd3ca4;
+  font-size: xx-large;
 }
 
 /* Navbar links */
 #navbarSupportedContent > ul > li > a {
-  color: deeppink;
+  color: #fd3ca4;
 }

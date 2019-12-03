@@ -141,7 +141,7 @@ router.post('/hide', (req, res) => {
   unsubscribe();
 });
 
-/* POST my-requests page, cancelling a request, redirecting to my-requests */
+/* POST my-requests page, cancelling a request, redirecting to donation-board */
 router.post('/cancel', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
@@ -162,7 +162,7 @@ router.post('/cancel', (req, res) => {
         res.render('index', { user: user, errorMessage: error });
       }
 
-      res.redirect('/my-requests');
+      res.redirect('/donation-board');
     }
   });
 
