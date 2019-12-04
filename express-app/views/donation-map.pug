@@ -5,10 +5,8 @@ block content
     if user
         include partials/navbar-authenticated
         style.
-            /* Always set the map height explicitly to define the size of the div
-            * element that contains the map. */
-            #map {
-                height: 740px;
+            html, body, #map {
+                height: calc(100% - 30px);
                 width: 100%;
             }
         body
@@ -17,7 +15,13 @@ block content
     else
         include partials/navbar-unauthenticated
         div(class="container")        
-            h1 Login to access maps
+        style.
+            html, body, #map {
+                height: calc(100% - 30px);
+                width: 100%;
+            }
+        body
+            #map
 
     script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js")
     script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js")
@@ -40,7 +44,17 @@ block content
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 37.3351874, lng: -121.88107150000002},
-            zoom: 17
+            zoom: 17,
+            styles: [{
+                featureType: 'poi',
+                stylers: [{ visibility: 'off' }]  // Turn off POI.
+            },
+            {
+                featureType: 'transit.station',
+                stylers: [{ visibility: 'off' }]  // Turn off bus, train stations etc.
+            }],
+            disableDoubleClickZoom: true,
+            streetViewControl: false,
             });
 
             firebase.firestore().collection('donations').get()
@@ -48,13 +62,44 @@ block content
                 donations = snapshot.docs.map(document => {
                 let donation = document.data();
                 donation.id = document.id;
-                var pos = {lat: donation.meeting_point_geopoint.latitude, lng: donation.meeting_point_geopoint.longitude};
-                console.log(pos.lat + " " + pos.lon);
-                var marker = new google.maps.Marker({
-                    position: pos,
-                    map: map,
-                    title: 'Hello World!'
-                });
+                
+                if(!donation.expired){
+                    var allergyInfo = "";
+                    if(donation.halal) allergyInfo += "Halal "
+                    if(donation.kosher) allergyInfo += "Kosher "
+                    if(donation.pescatarian) allergyInfo += "Pescatarian "
+                    if(donation.vegan) allergyInfo += "Vegan "
+                    if(donation.vegetarian) allergyInfo += "Vegetarian "
+
+                    var contentString = '<div id="content">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h1 id="firstHeading" class="firstHeading">' + donation.food_item + '</h1>'+
+                        '<div id="bodyContent">'+
+                        '<p><b>Amount: </b>' + donation.amount + '<br>'+
+                        '<b>Additional Info: </b>' + allergyInfo + '<br>'+
+                        '<b>Location: </b>' + donation.meeting_point + '<br>'+
+                        '<b>Donated by: </b>' + donation.donator + '<br>'+
+                        '<b>Pickup Date: </b>' + donation.pickup_date.toDate().toLocaleString() + '<br>'+
+                        '<b>Expiration Date: </b>' + donation.expiration_date.toDate().toLocaleString() + '</p>'+
+                        '</div>'+
+                        '</div>';
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    var pos = {lat: donation.meeting_point_geopoint.latitude, lng: donation.meeting_point_geopoint.longitude};
+                    //console.log(pos.lat + " " + pos.lon);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: donation.food_item
+                    });
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
+                }
                 });
             });
         }
