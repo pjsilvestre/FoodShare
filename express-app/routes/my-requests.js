@@ -19,8 +19,9 @@ router.use(async (req, res, next) => {
 
           let currentDate = new Date(Date.now());
           let expiration_date = donation.expiration_date.toDate();
+          let pickup_date = donation.pickup_date.toDate();
 
-          if (expiration_date < currentDate) {
+          if (expiration_date < currentDate || pickup_date < currentDate) {
             database
               .collection('donations')
               .doc(donation_id)
