@@ -15,6 +15,8 @@ const profileRouter = require('./routes/profile');
 const donationFormRouter = require('./routes/donation-form');
 const myDonationsRouter = require('./routes/my-donations');
 const myRequestsRouter = require('./routes/my-requests');
+const myMessageInboxRouter = require('./routes/message-inbox');
+const myMessageSendRouter = require('./routes/message-send');
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.use('/profile', profileRouter);
 app.use('/donation-form', donationFormRouter);
 app.use('/my-donations', myDonationsRouter);
 app.use('/my-requests', myRequestsRouter);
+app.use('/message-inbox', myMessageInboxRouter);
+app.use('/message-send', myMessageSendRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
