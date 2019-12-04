@@ -7,4 +7,11 @@
 /* Navbar links */
 #navbarSupportedContent > ul > li > a {
   color: #fd3ca4;
+  font-size: x-large;
+  margin-right: 25px;
+}
+
+#login_register_button {
+  color: #fd3ca4;
+  font-size: x-large;
 }

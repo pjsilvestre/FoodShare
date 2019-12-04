@@ -6,12 +6,12 @@ block content
         include partials/navbar-authenticated
     else
         include partials/navbar-unauthenticated
-        
+
     style.
         html, body, #map {
             height: 100%;
             width: 100%;
-            font-size: large;
+            overflow: hidden;
         }
 
         #map {
@@ -19,7 +19,7 @@ block content
             position: absolute;
             padding: 0px;
             margin: 0px;
-            top: 70px;
+            top: 64px;
             left: 0px;
         }
     body

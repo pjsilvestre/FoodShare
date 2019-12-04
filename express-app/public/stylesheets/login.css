@@ -10,16 +10,18 @@
   margin-bottom: 2%;
 }
 
-#login-email{
+#login-email {
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
+  font-size: x-large;
 }
 
-#login-password{
+#login-password {
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
+  font-size: x-large;
 }
 
 #card {
@@ -38,4 +40,8 @@
   background-color: midnightblue;
   text-align: center;
   margin-bottom: 2%;
+}
+
+body {
+  font-size: x-large;
 }

@@ -14,18 +14,22 @@
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
+  font-size: x-large;
 }
 
 #register-email{
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
+  font-size: x-large;
 }
 
 #register-password{
   border-color: deepskyblue;
   border-width: 4px;
   width: 100%;
+  font-size: x-large;
+
 }
 
 #card {
@@ -44,4 +48,8 @@
   background-color: midnightblue;
   text-align: center;
   margin-bottom: 2%;
+}
+
+body {
+  font-size: x-large;
 }

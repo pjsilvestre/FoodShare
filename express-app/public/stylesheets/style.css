@@ -1,10 +1,13 @@
+html, body {
+  background-color: '#F7EBE8'
+}
+
 body {
-  font-family: "Oswald", sans-serif !important;
+  font-family: 'Oswald', sans-serif !important;
 }
 
 h1 {
   color: #fd3ca4;
-  font-size: 25px;
   padding-top: 1%;
 }
 
@@ -16,4 +19,5 @@ h1 {
 
 .jumbotron {
   text-align: center;
+  background-color: #191970;
 }

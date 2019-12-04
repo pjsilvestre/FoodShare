@@ -4,7 +4,10 @@ block content
     link(rel="stylesheet" href="/stylesheets/my-donations.css")
     include partials/navbar-authenticated
     div(class="container")
-        h1 Your Requests:
+        if donations.length !== 0
+            h1 Your Requests:
+        else
+            h1 No Requests!
         div(class="card-deck")
 
             each donation in donations
