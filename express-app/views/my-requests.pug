@@ -31,7 +31,7 @@ block content
                                         button(type="submit" class="btn btn-success") Request Accepted - Fulfill
                                     form(action="/my-requests/cancel" method="POST")
                                         input(type="hidden" name="donation_id" value=donation.id)
-                                        button(type="submit" class="btn btn-danger") Cancel Request
+                                        button(type="submit" class="btn btn-danger" disabled) Cancel Request
 
                         else if donation.fulfilled_donatee
 
