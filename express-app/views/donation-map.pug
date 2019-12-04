@@ -5,10 +5,8 @@ block content
     if user
         include partials/navbar-authenticated
         style.
-            /* Always set the map height explicitly to define the size of the div
-            * element that contains the map. */
-            #map {
-                height: 900px;
+            html, body, #map {
+                height: calc(100% - 30px);
                 width: 100%;
             }
         body
@@ -17,7 +15,13 @@ block content
     else
         include partials/navbar-unauthenticated
         div(class="container")        
-            h1 Login to access maps
+        style.
+            html, body, #map {
+                height: calc(100% - 30px);
+                width: 100%;
+            }
+        body
+            #map
 
     script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js")
     script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js")
