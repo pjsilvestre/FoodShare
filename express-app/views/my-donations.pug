@@ -30,7 +30,7 @@ block content
                                         button(type="submit" class="btn btn-warning") Accept Request
                                     form(action="/my-donations/delete" method="POST")
                                         input(type="hidden" name="donation_id" value=donation.id)
-                                        button(type="submit" class="btn btn-danger") Delete Donation
+                                        button(type="submit" class="btn btn-danger" disabled) Delete Donation
 
                         else if donation.request_accepted
 
