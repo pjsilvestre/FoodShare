@@ -2,3 +2,4 @@ express-app/node_modules
 express-app/secrets
 .vscode/launch.json
 .vscode/settings.json
+express-app/.vscode/launch.json
