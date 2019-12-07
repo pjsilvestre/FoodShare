@@ -5,16 +5,14 @@ const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
-
 /* GET message-send page */
 router.get('/', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
-    if(!user){
+    if (!user) {
       res.redirect('/');
-    }else{
+    } else {
       res.render('message-send');
     }
-    
   });
 
   unsubscribe();
@@ -42,14 +40,14 @@ router.post('/', (req, res) => {
 
         //message.sent_date = sent_date;
 
-        let data ={
+        let data = {
           listing_name: listing_name,
           message: the_message,
           recipient: recipient,
           sender: user.uid,
           sent_date: new Date(Date.now()),
         };
-        
+
         await database.collection('messages').add(data);
       } catch (error) {
         res.render('index', { user: user, errorMessage: error });

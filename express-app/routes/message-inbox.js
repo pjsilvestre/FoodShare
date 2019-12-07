@@ -5,14 +5,13 @@ const firebase = require('../config/firebase-config-client');
 
 const database = admin.firestore();
 
-
 /* GET message-inbox page */
 router.get('/', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     let messages;
     await database
       .collection('messages')
-      .orderBy('sent_date','desc')
+      .orderBy('sent_date', 'desc')
       .get()
       .then(snapshot => {
         messages = snapshot.docs.map(document => {
@@ -20,12 +19,11 @@ router.get('/', (req, res) => {
           message.id = document.id;
 
           let sent_date = message.sent_date;
-          
+
           let recipient = message.recipient;
           let sender = message.sender;
           let the_message = message.the_message;
           let listing_name = message.listing_name;
-            
 
           // Firestore timestamp -> JavaScript date object
           sent_date = sent_date.toDate();
@@ -34,7 +32,6 @@ router.get('/', (req, res) => {
           sent_date = sent_date.toLocaleString();
 
           message.sent_date = sent_date;
-
 
           return message;
         });
@@ -66,7 +63,7 @@ router.post('/', (req, res) => {
         let sender = await user.uid;
         let listing_name = message.listing_name;
         let data = {
-          listing_name
+          listing_name,
         };
         await database
           .collection('messages')
