@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    if user
-        include partials/navbar-authenticated
-        include partials/error-message
-            div(class="jumbotron")
-                h1 Welcome to foodshare, #{user.uid}.
-    else
-        include partials/navbar-unauthenticated
-        include partials/error-message
-            div(class="jumbotron")
-                h1 Welcome to foodshare.
+  if user
+    include partials/navbar-authenticated
+    include partials/error-message
+      div(class="jumbotron")
+        h1 Welcome to foodshare, #{user.uid}.
+  else
+    include partials/navbar-unauthenticated
+    include partials/error-message
+      div(class="jumbotron")
+        h1 Welcome to foodshare.

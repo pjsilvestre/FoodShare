@@ -1,21 +1,21 @@
 extends layout
 
 block content
-    link(rel="stylesheet" href="/stylesheets/login.css")
-    include partials/navbar-unauthenticated
-    div(class="container")
+  link(rel="stylesheet" href="/stylesheets/login.css")
+  include partials/navbar-unauthenticated
+  div(class="container")
 
-        div(class="card w-50" id="card")
-            h1(class="card-header" id="card_header") Login
-            div(class="container")
-                include partials/error-message
-                form(action="/login" method="POST")
-                    div(class="form-group")
-                        label(for="email" id="login_register_labels") SJSU Email
-                        input(type="email" class="form-control" name="email" placeholder="Enter valid SJSU email (e.g. john.doe@sjsu.edu)" pattern=".+@sjsu.edu" id="login-email" required)
-                    div(class="form-group")
-                        label(for="password" id="login_register_labels") Password
-                        input(type="password" class="form-control" name="password" placeholder="Enter password" id="login-password" required)
-                    div(class="text-center")
-                        button(type="submit" class="btn btn-primary" id="login_register_button") Login
+    div(class="card w-50" id="card")
+      h1(class="card-header" id="card_header") Login
+      div(class="container")
+        include partials/error-message
+        form(action="/login" method="POST")
+          div(class="form-group")
+            label(for="email" id="login_register_labels") SJSU Email
+            input(type="email" class="form-control" name="email" placeholder="Enter valid SJSU email (e.g. john.doe@sjsu.edu)" pattern=".+@sjsu.edu" id="login-email" required)
+          div(class="form-group")
+            label(for="password" id="login_register_labels") Password
+            input(type="password" class="form-control" name="password" placeholder="Enter password" id="login-password" required)
+          div(class="text-center")
+            button(type="submit" class="btn btn-primary" id="login_register_button") Login
 
