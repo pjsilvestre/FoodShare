@@ -20,11 +20,7 @@ router.get('/', (req, res) => {
         });
       });
 
-    if (user) {
-      res.render('donation-map', { user: user, donations: donations });
-    } else {
-      res.redirect('/');
-    }
+    res.render('donation-map', { user: user, donations: donations });
   });
 
   unsubscribe();

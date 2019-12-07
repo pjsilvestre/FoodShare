@@ -18,11 +18,9 @@ block content
                         ul(class="list-group list-group-flush")
                             li(class="list-group-item")=`Message: ${message.message}`
                             li(class="list-group-item")=`From: ${message.sender}`
-                            li(class="list-group-item")=`Sent Date: ${message.sent_date}`
+                            
                         div(class="card-footer")
-                            form(action="/message-inbox" method="POST")
-                            input(type="hidden" name="message_id" value=message.id)
-                            button(type="submit" class="btn btn-primary") Reply
+                           label=`Sent Date: ${message.sent_date}`
 
         else
             h1 Please login to view your messages!
