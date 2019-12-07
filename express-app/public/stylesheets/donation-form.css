@@ -1,21 +1,63 @@
 #labels {
-  color: deeppink;
+  color: #fd3ca4;
+  font-size: x-large;
 }
 
-#label-border {
-  border-color: deepskyblue;
-  border-width: 4px;
-}
-
-#expiration-date {
+.form-control {
   border-color: deepskyblue;
   border-width: 4px;
 }
 
 #publish-button {
-  font-size: auto;
-  color: deeppink;
+  font-size: x-large;
+  color: #fd3ca4;
   background-color: midnightblue;
   border-width: 4px;
   border-color: deepskyblue;
+}
+
+#food_item {
+  font-size: x-large;
+}
+
+#amount {
+  font-size: x-large;
+}
+
+#meeting_point {
+  font-size: x-large;
+}
+
+#pickup_date {
+  font-size: x-large;
+}
+
+#expiration_date {
+  font-size: x-large;
+}
+
+/* https://stackoverflow.com/questions/48293920/change-bootstrap-4-checkbox-size? */
+
+.custom-control-label::before,
+.custom-control-label::after {
+  top: 0.8rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.custom-control-lg .custom-control-label {
+  margin-left: 0.5rem !important;
+  font-size: xx-large;
+}
+
+body
+  > div.container
+  > form
+  > div
+  > *
+  > div.custom-control.form-control-lg.custom-checkbox
+  > label {
+  padding-top: 2px;
+  padding-left: 10px;
+  font-size: x-large;
 }

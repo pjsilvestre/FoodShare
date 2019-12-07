@@ -1,11 +1,13 @@
-html {
-  font-size: 18px;
-  font-family: "Oswald", sans-serif;
+html, body {
+  background-color: '#F7EBE8'
+}
+
+body {
+  font-family: 'Oswald', sans-serif !important;
 }
 
 h1 {
-  color: deeppink;
-  font-size: 25px;
+  color: #fd3ca4;
   padding-top: 1%;
 }
 
@@ -13,4 +15,9 @@ h1 {
   width: 100%;
   padding: 0px;
   margin-bottom: 25px;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: #191970;
 }

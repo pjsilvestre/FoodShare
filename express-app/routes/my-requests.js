@@ -19,8 +19,9 @@ router.use(async (req, res, next) => {
 
           let currentDate = new Date(Date.now());
           let expiration_date = donation.expiration_date.toDate();
+          let pickup_date = donation.pickup_date.toDate();
 
-          if (expiration_date < currentDate) {
+          if (expiration_date < currentDate || pickup_date < currentDate) {
             database
               .collection('donations')
               .doc(donation_id)
@@ -141,7 +142,7 @@ router.post('/hide', (req, res) => {
   unsubscribe();
 });
 
-/* POST my-requests page, cancelling a request, redirecting to my-requests */
+/* POST my-requests page, cancelling a request, redirecting to donation-board */
 router.post('/cancel', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
@@ -162,7 +163,7 @@ router.post('/cancel', (req, res) => {
         res.render('index', { user: user, errorMessage: error });
       }
 
-      res.redirect('/my-requests');
+      res.redirect('/donation-board');
     }
   });
 
