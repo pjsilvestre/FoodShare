@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  link(rel="stylesheet" href="/stylesheets/message-inbox.css")
+  if user
+    include partials/navbar-authenticated
+  else
+    include partials/navbar-unauthenticated
+  div(class="container")
+    if user
+      //- show the page
+      h1 Your Messages:
+      div(class="card-deck")
+      each message in messages
+        if message.recipient == user.uid
+          div(class="card text-center")
+            h5(class="card-header")=`Listing Name: ${message.listing_name}`
+            ul(class="list-group list-group-flush")
+              li(class="list-group-item")=`Message: ${message.message}`
+              li(class="list-group-item")=`From: ${message.sender}`
+
+            div(class="card-footer")
+              label=`Sent Date: ${message.sent_date}`
+
+    else
+      h1 Please login to view your messages!

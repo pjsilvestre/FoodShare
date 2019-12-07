@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  link(rel="stylesheet" href="/stylesheets/message-send.css")
+  include partials/navbar-authenticated
+
+  div(class="container")
+
+    include partials/error-message
+    form(action="/message-send" method="POST")
+      div(class="row justify-content-between")
+        div(class="col-6")
+          div(class="form-group")
+          label(for="recipient" id="labels") To
+          input(type="text" class="form-control" name="recipient" placeholder="Enter recipient username" id="recipient" required)
+          div(class="form-group" id="labels")
+          div(class="form-group" id="labels") Listing Name
+          input(type="text" class="form-control" name="listing_name" placeholder="Enter listing name" id="listing_name" required)
+
+
+          div(class="col-6")
+          div(class="form-group" id="labels")
+          label(for="recipient" id="labels") Message
+          div(class="form-group" id="labels")
+          textarea(type="text" class="form-control" name="message" placeholder="Enter message" rows="4" cols="50" id="message" required)
+          button(type="submit" class="btn btn-primary float-right" id="send-button") Send
