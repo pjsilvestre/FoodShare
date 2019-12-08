@@ -41,6 +41,7 @@ router.use(async (req, res, next) => {
 router.get('/', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
     let donations;
+
     await database
       .collection('donations')
       .where('expired', '==', false)
@@ -52,23 +53,12 @@ router.get('/', (req, res) => {
           let donation = document.data();
           donation.id = document.id;
 
-          let date_added = donation.date_added;
-          let pickup_date = donation.pickup_date;
-          let expiration_date = donation.expiration_date;
-
-          // Firestore timestamp -> JavaScript date object
-          date_added = date_added.toDate();
-          pickup_date = pickup_date.toDate();
-          expiration_date = expiration_date.toDate();
-
-          // JavaScript date objects -> DOM strings
-          date_added = date_added.toLocaleString();
-          pickup_date = pickup_date.toLocaleString();
-          expiration_date = expiration_date.toLocaleString();
-
-          donation.date_added = date_added;
-          donation.pickup_date = pickup_date;
-          donation.expiration_date = expiration_date;
+          // Firestore timestamp -> JavaScript date object -> DOM strings
+          donation.date_added = donation.date_added.toDate().toLocaleString();
+          donation.pickup_date = donation.pickup_date.toDate().toLocaleString();
+          donation.expiration_date = donation.expiration_date
+            .toDate()
+            .toLocaleString();
 
           let dietary_restrictions = '';
           if (donation.halal) dietary_restrictions += 'Halal ';
@@ -81,7 +71,8 @@ router.get('/', (req, res) => {
 
           return donation;
         });
-      });
+      })
+      .catch(error => res.render('index', { user: user, errorMessage: error }));
 
     if (user) {
       res.render('donation-board', { user: user, donations });
@@ -101,7 +92,7 @@ router.post('/', (req, res) => {
     } else {
       try {
         let donation_id = req.body.donation_id;
-        let donatee = await user.uid;
+        let donatee = user.uid;
 
         await database
           .collection('donations')

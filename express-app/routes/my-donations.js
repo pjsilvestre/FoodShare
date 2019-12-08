@@ -48,14 +48,21 @@ router.get('/', (req, res) => {
     await database
       .collection('donations')
       .where('donator', '==', user.uid)
-      .orderBy('request_accepted', 'desc') // if a donation request has been accepted, show it first...
-      .orderBy('requested', 'desc') // ...then any donations that have yet to be accepted
+      .orderBy('request_accepted', 'desc') // show accepted requests
+      .orderBy('requested', 'desc') // show pending requests
       .orderBy('expiration_date')
       .get()
       .then(snapshot => {
         donations = snapshot.docs.map(document => {
           let donation = document.data();
           donation.id = document.id;
+
+          // Firestore timestamp -> JavaScript date object -> DOM strings
+          donation.date_added = donation.date_added.toDate().toLocaleString();
+          donation.pickup_date = donation.pickup_date.toDate().toLocaleString();
+          donation.expiration_date = donation.expiration_date
+            .toDate()
+            .toLocaleString();
 
           let dietary_restrictions = '';
           if (donation.halal) dietary_restrictions += 'Halal ';
@@ -65,24 +72,6 @@ router.get('/', (req, res) => {
           if (donation.vegetarian) dietary_restrictions += 'Vegetarian';
 
           donation.dietary_restrictions = dietary_restrictions;
-
-          let date_added = donation.date_added;
-          let pickup_date = donation.pickup_date;
-          let expiration_date = donation.expiration_date;
-
-          // Firestore timestamp -> JavaScript date object
-          date_added = date_added.toDate();
-          pickup_date = pickup_date.toDate();
-          expiration_date = expiration_date.toDate();
-
-          // JavaScript date objects -> DOM strings
-          date_added = date_added.toLocaleString();
-          pickup_date = pickup_date.toLocaleString();
-          expiration_date = expiration_date.toLocaleString();
-
-          donation.date_added = date_added;
-          donation.pickup_date = pickup_date;
-          donation.expiration_date = expiration_date;
 
           return donation;
         });

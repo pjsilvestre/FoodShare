@@ -8,19 +8,7 @@ const database = admin.firestore();
 /* Get maps page */
 router.get('/', (req, res) => {
   let unsubscribe = firebase.auth().onAuthStateChanged(async user => {
-    let donations;
-    await database
-      .collection('donations')
-      .get()
-      .then(snapshot => {
-        donations = snapshot.docs.map(document => {
-          let donation = document.data();
-          donation.id = document.id;
-          return donation;
-        });
-      });
-
-    res.render('donation-map', { user: user, donations: donations });
+    await res.render('donation-map', { user: user });
   });
 
   unsubscribe();

@@ -1,95 +1,95 @@
 extends layout
 
 block content
-    link(rel="stylesheet" href="/stylesheets/donation-form.css")
-    include partials/navbar-authenticated
-    div(class="container")
-        h1 Create a Listing
-        br
-        include partials/error-message
-        form(action="/donation-form" method="POST")
-            div(class="row justify-content-between")
-                div(class="col-6")
-                    div(class="form-group")
-                        label(for="food-item" id="labels") Food Item
-                        input(type="text" class="form-control" name="food_item" placeholder="Enter food item" id="food_item" required)
-                    div(class="form-group" id="labels")
-                        label(for="amount" id="labels") Amount
-                        input(type="text" class="form-control" name="amount" placeholder="Enter food amount" id="amount" required)
-                    div(class="form-group")
-                        label(for="meeting_point" id="labels") Meeting Point
-                        input(type="text" class="form-control" name="meeting_point" placeholder="Enter a meeting point" id="meeting_point" required)
-                        input(type="hidden" name="meeting_point_geopoint_latitude" id="meeting_point_geopoint_latitude")
-                        input(type="hidden" name="meeting_point_geopoint_longitude" id="meeting_point_geopoint_longitude")
-                div(class="col-6")
-                    div(class="form-group")
-                        label(for="pickup-date" id="labels") Pickup Date
-                        input(class="form-control" type="datetime-local" name="pickup_date" value="" id="pickup_date" required)
-                    div(class="form-group")
-                        label(for="expiration_date" id="labels") Expiration Date
-                        input(class="form-control" type="datetime-local" name="expiration_date" value="" id="expiration_date" required)
-                    label(id="labels") Food Lifestyle
-                    div(class="custom-control form-control-lg custom-checkbox")
-                        input(type="checkbox" class="custom-control-input" name="halal" value="true" id="halal")
-                        label(class="custom-control-label" for="halal" ) Halal
-                    div(class="custom-control form-control-lg custom-checkbox")
-                        input(type="checkbox" class="custom-control-input" name="kosher" value="true" id="kosher")
-                        label(class="custom-control-label" for="kosher" ) Kosher
-                    div(class="custom-control form-control-lg custom-checkbox")
-                        input(type="checkbox" class="custom-control-input" name="pescatarian" value="true" id="pescatarian")
-                        label(class="custom-control-label" for="pescatarian" ) Pescatarian
-                    div(class="custom-control form-control-lg custom-checkbox")
-                        input(type="checkbox" class="custom-control-input" name="vegan" value="true" id="vegan")
-                        label(class="custom-control-label" for="vegan" ) Vegan 
-                    div(class="custom-control form-control-lg custom-checkbox")
-                        input(type="checkbox" class="custom-control-input" name="vegetarian" value="true" id="vegetarian")
-                        label(class="custom-control-label" for="vegetarian") Vegetarian
-                    button(type="submit" class="btn btn-primary float-right" id="publish-button") Publish
+  link(rel="stylesheet" href="/stylesheets/donation-form.css")
+  include partials/navbar-authenticated
+  div(class="container")
+    h1 Create a Listing
+    br
+    include partials/error-message
+    form(action="/donation-form" method="POST")
+      div(class="row justify-content-between")
+        div(class="col-6")
+          div(class="form-group")
+            label(for="food-item" id="labels") Food Item
+            input(type="text" class="form-control" name="food_item" placeholder="Enter food item" id="food_item" required)
+          div(class="form-group" id="labels")
+            label(for="amount" id="labels") Amount
+            input(type="text" class="form-control" name="amount" placeholder="Enter food amount" id="amount" required)
+          div(class="form-group")
+            label(for="meeting_point" id="labels") Meeting Point
+            input(type="text" class="form-control" name="meeting_point" placeholder="Enter a meeting point" id="meeting_point" required)
+            input(type="hidden" name="meeting_point_geopoint_latitude" id="meeting_point_geopoint_latitude")
+            input(type="hidden" name="meeting_point_geopoint_longitude" id="meeting_point_geopoint_longitude")
+        div(class="col-6")
+          div(class="form-group")
+            label(for="pickup-date" id="labels") Pickup Date
+            input(class="form-control" type="datetime-local" name="pickup_date" value="" id="pickup_date" required)
+          div(class="form-group")
+            label(for="expiration_date" id="labels") Expiration Date
+            input(class="form-control" type="datetime-local" name="expiration_date" value="" id="expiration_date" required)
+          label(id="labels") Food Lifestyle
+          div(class="custom-control form-control-lg custom-checkbox")
+            input(type="checkbox" class="custom-control-input" name="halal" value="true" id="halal")
+            label(class="custom-control-label" for="halal" ) Halal
+          div(class="custom-control form-control-lg custom-checkbox")
+            input(type="checkbox" class="custom-control-input" name="kosher" value="true" id="kosher")
+            label(class="custom-control-label" for="kosher" ) Kosher
+          div(class="custom-control form-control-lg custom-checkbox")
+            input(type="checkbox" class="custom-control-input" name="pescatarian" value="true" id="pescatarian")
+            label(class="custom-control-label" for="pescatarian" ) Pescatarian
+          div(class="custom-control form-control-lg custom-checkbox")
+            input(type="checkbox" class="custom-control-input" name="vegan" value="true" id="vegan")
+            label(class="custom-control-label" for="vegan" ) Vegan 
+          div(class="custom-control form-control-lg custom-checkbox")
+            input(type="checkbox" class="custom-control-input" name="vegetarian" value="true" id="vegetarian")
+            label(class="custom-control-label" for="vegetarian") Vegetarian
+          button(type="submit" class="btn btn-primary float-right" id="publish-button") Publish
 
-    script.
-        // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+  script.
+    // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/places-autocomplete-addressform
 
-        let placeSearch, autocomplete;
+    let placeSearch, autocomplete;
 
-        let componentForm ={
-            street_number: 'short_name',
-            route: 'long_name',
-            locality: 'long_name',
-            administrative_area_level_1: 'short_name',
-            country: 'long_name',
-            postal_code: 'short_name'
+    let componentForm ={
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'short_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    }
+
+    function initAutocomplete() {
+      let meetingPointElement = document.getElementById('meeting_point');
+
+      let SJSUBoundingArea = new google.maps.LatLngBounds(
+        new google.maps.LatLng(37.3352, -121.8811),
+        new google.maps.LatLng(37.3352, -121.8811));
+
+      let autocompleteOptions = {
+        bounds: SJSUBoundingArea
         }
 
-        function initAutocomplete() {
-            let meetingPointElement = document.getElementById('meeting_point');
+      autocomplete = new google.maps.places.Autocomplete(meetingPointElement, autocompleteOptions);
+      autocomplete.setFields(['name', 'geometry']);
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
 
-            let SJSUBoundingArea = new google.maps.LatLngBounds(
-                new google.maps.LatLng(37.3352, -121.8811),
-                new google.maps.LatLng(37.3352, -121.8811));
+    function fillInAddress() {
+      let meetingPointAddressElement = document.getElementById('meeting_point');
+      let meetingPointGeopointLatitudeElement = document.getElementById('meeting_point_geopoint_latitude');
+      let meetingPointGeopointLongitudeElement = document.getElementById('meeting_point_geopoint_longitude');
 
-            let autocompleteOptions = {
-                bounds: SJSUBoundingArea
-                }
+      let place = autocomplete.getPlace();
+      let address = place.name;
+      let geopointLatitude = place.geometry.location.lat();
+      let geopointLongitude = place.geometry.location.lng();
 
-            autocomplete = new google.maps.places.Autocomplete(meetingPointElement, autocompleteOptions);
-            autocomplete.setFields(['name', 'geometry']);
-            autocomplete.addListener('place_changed', fillInAddress);
-        }
-
-        function fillInAddress() {
-            let meetingPointAddressElement = document.getElementById('meeting_point');
-            let meetingPointGeopointLatitudeElement = document.getElementById('meeting_point_geopoint_latitude');
-            let meetingPointGeopointLongitudeElement = document.getElementById('meeting_point_geopoint_longitude');
-
-            let place = autocomplete.getPlace();
-            let address = place.name;
-            let geopointLatitude = place.geometry.location.lat();
-            let geopointLongitude = place.geometry.location.lng();
-
-            meetingPointAddressElement.value = address;
-            meetingPointGeopointLatitudeElement.value = geopointLatitude;
-            meetingPointGeopointLongitudeElement.value = geopointLongitude;
-        }
+      meetingPointAddressElement.value = address;
+      meetingPointGeopointLatitudeElement.value = geopointLatitude;
+      meetingPointGeopointLongitudeElement.value = geopointLongitude;
+    }
 
 
-    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&libraries=places&callback=initAutocomplete" async defer).
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEV6HqDHYuIM1eAGrUw3tGAfIV-l4d88Y&libraries=places&callback=initAutocomplete" async defer).

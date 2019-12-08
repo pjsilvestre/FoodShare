@@ -1,116 +1,116 @@
 extends layout
 
 block content
-    link(rel="stylesheet" href="/stylesheets/my-donations.css")
-    include partials/navbar-authenticated
-    div(class="container")
-        if donations.length !== 0
-            h1 Your Donations:
-        else
-            h1 No Donations!
-        div(class="card-deck")
+  link(rel="stylesheet" href="/stylesheets/my-donations.css")
+  include partials/navbar-authenticated
+  div(class="container")
+    if donations.length !== 0
+      h1 Your Donations:
+    else
+      h1 No Donations!
+    div(class="card-deck")
 
-            each donation in donations
+      each donation in donations
 
-                if !donation.hidden_donator
+        if !donation.hidden_donator
 
-                    if donation.requested
+          if donation.requested
 
-                        if !donation.request_accepted
+            if !donation.request_accepted
 
-                            div(class="card text-center")
-                                h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!`
-                                ul(class="list-group list-group-flush")
-                                    li(class="list-group-item")=`Amount: ${donation.amount}`
-                                    if donation.dietary_restrictions !== ""
-                                        li(class="list-group-item")=`${donation.dietary_restrictions}`
-                                    li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
-                                    li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
-                                    li(class="list-group-item")=`Expires: ${donation.expiration_date}`
-                                div(class="card-footer")
-                                    form(action="/my-donations/accept" method="POST")
-                                        input(type="hidden" name="donation_id" value=donation.id)
-                                        button(type="submit" class="btn btn-warning") Accept Request
-                                    form(action="/my-donations/delete" method="POST")
-                                        input(type="hidden" name="donation_id" value=donation.id)
-                                        button(type="submit" class="btn btn-danger" disabled) Delete Donation
+              div(class="card text-center")
+                h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!`
+                ul(class="list-group list-group-flush")
+                  li(class="list-group-item")=`Amount: ${donation.amount}`
+                  if donation.dietary_restrictions !== ""
+                    li(class="list-group-item")=`${donation.dietary_restrictions}`
+                  li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                  li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                  li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+                div(class="card-footer")
+                  form(action="/my-donations/accept" method="POST")
+                    input(type="hidden" name="donation_id" value=donation.id)
+                    button(type="submit" class="btn btn-warning") Accept Request
+                  form(action="/my-donations/delete" method="POST")
+                    input(type="hidden" name="donation_id" value=donation.id)
+                    button(type="submit" class="btn btn-danger" disabled) Delete Donation
 
-                        else if donation.request_accepted
+            else if donation.request_accepted
 
-                            if !donation.fulfilled_donator
+              if !donation.fulfilled_donator
 
-                                div(class="card text-center")
-                                    h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!` 
-                                    ul(class="list-group list-group-flush")
-                                        li(class="list-group-item")=`Amount: ${donation.amount}`
-                                        if donation.dietary_restrictions !== ""
-                                            li(class="list-group-item")=`${donation.dietary_restrictions}`
-                                        li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
-                                        li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
-                                        li(class="list-group-item")=`Expires: ${donation.expiration_date}`
-                                    div(class="card-footer")
-                                        form(action="/my-donations/fulfill" method="POST")
-                                            input(type="hidden" name="donation_id" value=donation.id)
-                                            button(type="submit" class="btn btn-success") Fulfill Request
-                                        form(action=("/my-donations/delete") method="POST")
-                                            input(type="hidden" name="donation_id" value=donation.id)
-                                            button(type="submit" class="btn btn-danger") Delete Donation
+                div(class="card text-center")
+                  h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!` 
+                  ul(class="list-group list-group-flush")
+                    li(class="list-group-item")=`Amount: ${donation.amount}`
+                    if donation.dietary_restrictions !== ""
+                      li(class="list-group-item")=`${donation.dietary_restrictions}`
+                    li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                    li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                    li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+                  div(class="card-footer")
+                    form(action="/my-donations/fulfill" method="POST")
+                      input(type="hidden" name="donation_id" value=donation.id)
+                      button(type="submit" class="btn btn-success") Fulfill Request
+                    form(action=("/my-donations/delete") method="POST")
+                      input(type="hidden" name="donation_id" value=donation.id)
+                      button(type="submit" class="btn btn-danger") Delete Donation
 
-                            else if donation.fulfilled_donator
+              else if donation.fulfilled_donator
 
-                                if !donation.fulfilled_donatee
+                if !donation.fulfilled_donatee
 
-                                    div(class="card text-center")
-                                        h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!` 
-                                        ul(class="list-group list-group-flush")
-                                            li(class="list-group-item")=`Amount: ${donation.amount}`
-                                            if donation.dietary_restrictions !== ""
-                                                li(class="list-group-item")=`${donation.dietary_restrictions}`
-                                            li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
-                                            li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
-                                            li(class="list-group-item")=`Expires: ${donation.expiration_date}`
-                                        div(class="card-footer")
-                                            form
-                                                input(type="hidden")
-                                                button(type="submit" class="btn btn-info" disabled) Waiting for donatee to fulfill...
-                                            form(action=("/my-donations/delete") method="POST")
-                                                input(type="hidden" name="donation_id" value=donation.id)
-                                                button(type="submit" class="btn btn-danger" disabled) Delete Donation
+                  div(class="card text-center")
+                    h5(class="card-header")=`${donation.food_item} requested by ${donation.donatee}!` 
+                    ul(class="list-group list-group-flush")
+                      li(class="list-group-item")=`Amount: ${donation.amount}`
+                      if donation.dietary_restrictions !== ""
+                        li(class="list-group-item")=`${donation.dietary_restrictions}`
+                      li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                      li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                      li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+                    div(class="card-footer")
+                      form
+                        input(type="hidden")
+                        button(type="submit" class="btn btn-info" disabled) Waiting for donatee to fulfill...
+                      form(action=("/my-donations/delete") method="POST")
+                        input(type="hidden" name="donation_id" value=donation.id)
+                        button(type="submit" class="btn btn-danger" disabled) Delete Donation
 
-                                else if donation.fulfilled_donatee
+                else if donation.fulfilled_donatee
 
-                                    div(class="card text-center")
-                                        h5(class="card-header")=`${donation.food_item} request by ${donation.donatee} fulfilled!` 
-                                        ul(class="list-group list-group-flush")
-                                            li(class="list-group-item")=`Amount: ${donation.amount}`
-                                            if donation.dietary_restrictions !== ""
-                                                li(class="list-group-item")=`${donation.dietary_restrictions}`
-                                            li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
-                                            li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
-                                            li(class="list-group-item")=`Expires: ${donation.expiration_date}`
-                                        div(class="card-footer")
-                                            form
-                                                input(type="hidden")
-                                                button(type="submit" class="btn btn-success" disabled) Request fulfilled!
-                                            form(action=("/my-donations/hide") method="POST")
-                                                input(type="hidden" name="donation_id" value=donation.id)
-                                                button(type="submit" class="btn btn-danger") Hide Donation
+                  div(class="card text-center")
+                    h5(class="card-header")=`${donation.food_item} request by ${donation.donatee} fulfilled!` 
+                    ul(class="list-group list-group-flush")
+                      li(class="list-group-item")=`Amount: ${donation.amount}`
+                      if donation.dietary_restrictions !== ""
+                        li(class="list-group-item")=`${donation.dietary_restrictions}`
+                      li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                      li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                      li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+                    div(class="card-footer")
+                      form
+                        input(type="hidden")
+                        button(type="submit" class="btn btn-success" disabled) Request fulfilled!
+                      form(action=("/my-donations/hide") method="POST")
+                        input(type="hidden" name="donation_id" value=donation.id)
+                        button(type="submit" class="btn btn-danger") Hide Donation
 
-                    else if !donation.requested
+          else if !donation.requested
 
-                        div(class="card text-center")
-                            h5(class="card-header")=`${donation.food_item}`
-                            ul(class="list-group list-group-flush")
-                                li(class="list-group-item")=`Amount: ${donation.amount}`
-                                if donation.dietary_restrictions !== ""
-                                    li(class="list-group-item")=`${donation.dietary_restrictions}`
-                                li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
-                                li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
-                                li(class="list-group-item")=`Expires: ${donation.expiration_date}`
-                            div(class="card-footer")
-                                form
-                                    input(type="hidden")
-                                    button(type="submit" class="btn btn-secondary" disabled) No Requests
-                                form(action=("/my-donations/delete") method="POST")
-                                    input(type="hidden" name="donation_id" value=donation.id)
-                                    button(type="submit" class="btn btn-danger") Delete Donation
+            div(class="card text-center")
+              h5(class="card-header")=`${donation.food_item}`
+              ul(class="list-group list-group-flush")
+                li(class="list-group-item")=`Amount: ${donation.amount}`
+                if donation.dietary_restrictions !== ""
+                  li(class="list-group-item")=`${donation.dietary_restrictions}`
+                li(class="list-group-item")=`Meeting Point: ${donation.meeting_point}`
+                li(class="list-group-item")=`Pickup Date: ${donation.pickup_date}`
+                li(class="list-group-item")=`Expires: ${donation.expiration_date}`
+              div(class="card-footer")
+                form
+                  input(type="hidden")
+                  button(type="submit" class="btn btn-secondary" disabled) No Requests
+                form(action=("/my-donations/delete") method="POST")
+                  input(type="hidden" name="donation_id" value=donation.id)
+                  button(type="submit" class="btn btn-danger") Delete Donation
